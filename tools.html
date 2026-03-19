@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Tools Directory — Nexlyr</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .page-header { padding: calc(var(--nav-h) + 80px) 0 60px; }
+
+    /* FILTER BAR */
+    .filter-bar {
+      background: var(--deep);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 24px 0;
+      position: sticky; top: var(--nav-h); z-index: 100;
+    }
+
+    .filter-inner {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    }
+
+    .filter-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .filter-pills {
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+
+    .filter-pill {
+      padding: 7px 18px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-pill:hover { border-color: var(--border-glow); color: var(--text-primary); }
+    .filter-pill.active { background: var(--accent); border-color: var(--accent); color: var(--void); }
+
+    .search-box {
+      margin-left: auto;
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 18px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--panel);
+      transition: border-color 0.2s;
+    }
+
+    .search-box:focus-within { border-color: var(--border-glow); }
+
+    .search-box input {
+      background: none; border: none; outline: none;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      width: 200px;
+    }
+
+    .search-box input::placeholder { color: var(--text-muted); }
+
+    /* TOOLS GRID */
+    .tools-section { padding: 60px 0 120px; }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .tool-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.3s var(--ease-silk);
+      display: flex; flex-direction: column;
+      gap: 16px;
+    }
+
+    .tool-card:hover { border-color: var(--border-glow); transform: translateY(-3px); }
+    .tool-card.hidden { display: none; }
+
+    .tool-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 12px;
+    }
+
+    .tool-logo {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+
+    .tool-rating {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: #f59e0b;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .tool-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .tool-card p {
+      color: var(--text-secondary);
+      font-size: 0.825rem;
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .tool-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 8px;
+    }
+
+    .tool-pricing {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--teal);
+      letter-spacing: 0.06em;
+    }
+
+    .tool-link {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: color 0.2s;
+    }
+
+    .tool-link:hover { color: #6fa3ff; }
+
+    /* NEXLYR SCORE */
+    .nexlyr-score {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 14px;
+      background: var(--accent-soft);
+      border: 1px solid var(--border-glow);
+      border-radius: 8px;
+    }
+
+    .score-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .score-bar-wrap {
+      flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden;
+    }
+
+    .score-bar { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--teal)); }
+
+    .score-num {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* FEATURED BANNER */
+    .featured-banner {
+      background: linear-gradient(135deg, rgba(79,140,255,0.08), rgba(0,212,184,0.06));
+      border: 1px solid var(--border-glow);
+      border-radius: 20px;
+      padding: 40px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+
+    .featured-banner h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .featured-banner p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      max-width: 480px;
+    }
+
+    /* TOOL COUNT */
+    .tools-meta {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .tools-meta p {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+
+    @media (max-width: 1024px) {
+      .tools-grid { grid-template-columns: repeat(2, 1fr); }
+      .featured-banner { flex-direction: column; }
+    }
+    @media (max-width: 768px) {
+      .tools-grid { grid-template-columns: 1fr; }
+      .filter-inner { gap: 10px; }
+      .search-box { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+
+<section class="page-header">
+  <div class="container">
+    <div class="orb orb-violet" style="width:600px;height:600px;top:-200px;right:-200px;"></div>
+    <div class="section-label fade-up">AI Tools Directory</div>
+    <h1 class="section-title fade-up fade-up-d1" style="max-width:700px;">
+      2,400+ tools evaluated.<br><em>Only the best make the list.</em>
+    </h1>
+    <p class="section-subtitle fade-up fade-up-d2">
+      Every tool here has passed our 47-point evaluation. Nexlyr Scores reflect real-world performance, pricing value, security posture, and integration depth.
+    </p>
+  </div>
+</section>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="container">
+    <div class="filter-inner">
+      <span class="filter-label">Filter:</span>
+      <div class="filter-pills">
+        <button class="filter-pill active" data-filter="all">All</button>
+        <button class="filter-pill" data-filter="writing">Writing</button>
+        <button class="filter-pill" data-filter="code">Code</button>
+        <button class="filter-pill" data-filter="design">Design</button>
+        <button class="filter-pill" data-filter="data">Data</button>
+        <button class="filter-pill" data-filter="research">Research</button>
+        <button class="filter-pill" data-filter="ops">Operations</button>
+        <button class="filter-pill" data-filter="finance">Finance</button>
+        <button class="filter-pill" data-filter="marketing">Marketing</button>
+      </div>
+      <div class="search-box">
+        <svg width="14" height="14" fill="none" viewBox="0 0 16 16"><circle cx="6" cy="6" r="5" stroke="rgba(150,170,220,0.5)" stroke-width="1.5"/><path d="m10 10 4 4" stroke="rgba(150,170,220,0.5)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <input type="text" placeholder="Search tools..." id="tool-search" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOOLS SECTION -->
+<section class="tools-section">
+  <div class="container">
+
+    <!-- FEATURED BANNER -->
+    <div class="featured-banner">
+      <div>
+        <h3>🔥 Nexlyr Pick of the Month</h3>
+        <p>This month we're highlighting <strong>Perplexity Pro</strong> as the standout research tool for knowledge workers — combining real-time web access with source citations at a price that undercuts the competition significantly.</p>
+      </div>
+      <a href="#" class="btn btn-primary" style="white-space:nowrap;">Read Full Review</a>
+    </div>
+
+    <div class="tools-meta">
+      <p id="tool-count">Showing 18 tools</p>
+      <div class="tag tag-accent">Last updated: March 2026</div>
+    </div>
+
+    <div class="tools-grid" id="tools-grid">
+
+      <!-- WRITING -->
+      <div class="tool-card" data-category="writing" data-name="claude">
+        <div class="tool-header">
+          <div>
+            <div class="tool-logo">🧠</div>
+          </div>
+          <div class="tool-rating">★★★★★ 4.9</div>
+        </div>
+        <div>
+          <h3>Claude</h3>
+          <div class="tag tag-accent" style="margin-bottom:10px;">Writing</div>
+        </div>
+        <p>The gold standard for long-form writing, nuanced analysis, and safe enterprise deployment. Anthropic's safety-first model performs exceptionally on complex reasoning tasks.</p>
+        <div class="nexlyr-score">
+          <span class="score-label">Nexlyr</span>
+          <div class="score-bar-wrap"><div class="score-bar" style="width:97%"></div></div>
+          <span class="score-num">97</span>
+        </div>
+        <div class="tool-footer">
+          <span class="tool-pricing">Free → $20/mo Pro</span>
+          <a href="#" class="tool-link">Full review →</a>
+        </div>
+      </div>
+
+      <div class="tool-card" data-category="writing" data-name="chatgpt">
+        <div class="tool-header">
+          <div class="tool-logo">💬</div>
+          <div class="tool-rating">★★★★★ 4.8</div>
+        </div>
+        <div>
+          <h3>ChatGPT</h3>
+          <div class="tag" style="margin-bottom:10px;">Writing</div>
+        </div>
+        <p>The most widely adopted AI assistant. GPT-4o offers strong multimodal capabilities and broad plugin ecosystem. Best for versatile, everyday AI use cases.</p>
+        <div class="nexlyr-score">
+          <span class="score-label">Nexlyr</span>
+          <div class="score-bar-wrap"><div class="score-bar" style="width:93%"></div></div>
+          <span class="score-num">93</span>
+        </div>
+        <div class="tool-footer">
+          <span class="tool-pricing">Free → $20/mo Plus</span>
+          <a href="#" class="tool-link">Full review →</a>
+        </div>
+      </div>
+
+      <div class="tool-card" data-category="writing" data-name="jasper">
+        <div class="tool-header">
+          <div class="tool-logo">✍️</div>
+          <div class="tool-rating">★★★★☆ 4.2</div>
+        </div>
+        <div>
+          <h3>Jasper AI</h3>
+          <div class="tag" style="margin-bottom:10px;">Writing · Marketing</div>
+        </div>
+        <p>Marketing-focused writing AI with brand voice training and campaign templates. Best for content marketing teams producing at high volume.</p>
+        <div class="nexlyr-score">
+          <span class="score-label">Nexlyr</span>
+          <div class="score-bar-wrap"><div class="score-bar" style="width:78%"></div></div>
+          <span class="score-num">78</span>
+        </div>
+        <div class="tool-footer">
+          <span class="tool-pricing">From $49/mo</span>
+          <a href="#" class="tool-link">Full review →</a>
+        </div>
+      </div>
+
+      <!-- CODE -->
+      <div class="tool-card" data-category="code" data-name="cursor">
+        <div class="tool-header">
+          <div class="tool-logo">⚡</div>
+          <div class="tool-rating">★★★★★ 4.9</div>
+        </div>
+        <div>
+          <h3>Cursor</h3>
+          <div class="tag tag-teal" style="margin-bottom:10px;">Code</div>
+        </div>
+        <p>The AI code editor that's become the default for serious developers. Codebase-aware, fast, and tightly integrated with Claude and GPT-4o. A genuine step-change in coding speed.</p>
+        <div class="nexlyr-score">
+          <span class="score-label">Nexlyr</span>
+          <div class="score-bar-wrap"><div class="score-bar" style="width:96%"></div></div>
+          <span class="score-num">96</span>
+        </div>
+        <div class="tool-footer">
+          <span class="tool-pricing">Free → $20/mo Pro</span>
+          <a href="#" class="tool-link">Full review →</a>
+        </div>
+      </div>
+
+      <div class="tool-card" data-category="code" data-name="github copilot">
+        <div class="tool-header">
+          <div class="tool-logo">🐙</div>
+          <div class="tool-rating">★★★★☆ 4.4</div>
+        </div>
+        <div>
+          <h3>GitHub Copilot</h3>
+          <div class="tag tag-teal" style="margin-bottom:10px;">Code</div>
+        </div>
+        <p>Deep GitHub integration and enterprise security controls make Copilot the safe enterprise bet. Slightly behind Cursor on raw capability but unbeatable on org-level management.</p>
+        <div class="nexlyr-score">
+          <span class="score-label">Nexlyr</span>
+          <div class="score-bar-wrap"><div class="score-bar" style="width:85%"></div></div>
+          <span class="score-num">85</span>
+        </div>
+        <div class="tool-footer">
+          <span class="tool-pricing">$10/mo individual</span>
+          <a href="#" class="tool-link">Full review →</a>
+        </div>
+      </div>
+
+      <div class="tool-card" data-category="code" data-name="v0 vercel">
+        <div class="tool-header">
+          <div class="tool-logo">🎨</div>
+          <div class="tool-rating">★★★★☆ 4.5</div>
+        </div>
+        <div>
+          <h3>v0 by Vercel</h3>
+          <div class="tag tag-teal" style="margin-bottom:10px;">Code · Design</div>
+        </div>
+        <p>Generative UI tool that produces production-ready React components from natural language prompts. Exceptional for rapid frontend prototyping with Next.js/Tailwind stacks.</p>
+        <div class="nexlyr-score">
+          <span class="score-label">Nexlyr</span>
+          <div class="score-bar-wrap"><div class="score-bar" style="width:88%"></div></div>
+          <span class="score-num">88</span>
+        </div>
+        <div class="tool-footer">
+          <span class="tool-pricing">Free → $20/mo</span>
+          <a href="#" class="tool-link">Full review →</a>
+        </div>
+      </div>
+
+      <!-- DESIGN -->
+      <div class="tool-card" data-category="design" data-name="midjourney">
+        <div class="tool-header">
+          <div class="tool-logo">🎨</div>
+          <div class="tool-rating">★★★★★ 4.8</div>
+        </div>
+        <div>
+          <h3>Midjourney</h3>
+          <div class="tag tag-violet" style="margin-bottom:10px;">Design</div>
+        </div>
+        <p>Still the best image generation model for aesthetic quality and art direction. V6.1 introduced significant improvements to typography and photorealism.</p>
+        <div class="nexlyr-score">
+          <span class="score-label">Nexlyr</span>
+          <div class="score-bar-wrap"><div class="score-bar" style="width:94%"></div></div>
+          <span class="score-num">94</span>
+        </div>
+        <div class="tool-footer">
+          <span class="tool-pricing">From $10/mo</span>
+          <a href="#" class="tool-link">Full review →</a>
+        </div>
+      </div>
+
+      <div class="tool-card" data-category="design" data-name="figma ai">
+        <div class="tool-header">
+          <div class="tool-logo">🖼️</div>
+          <div class="tool-rating">★★★★☆ 4.3</div>
+        </div>
+        <div>
+          <h3>Figma AI</h3>
+          <div class="tag tag-violet" style="margin-bottom:10px;">Design</div>
+        </div>
+        <p>Native AI features inside Figma including auto-layout generation, AI fill, and component suggestions. Best for design teams already in the Figma ecosystem.</p>
+        <div class="nexlyr-score">
+          <span class="score-label">Nexlyr</span>
+          <div class="score-bar-wrap"><div class="score-bar" style="width:82%"></div></div>
+          <span class="score-num">82</span>
+        </div>
+        <div class="tool-footer">
+          <span class="tool-pricing">Included in Figma plans</span>
+          <a href="#" class="tool-link">Full review →</a>
+        </div>
+      </div>
+
+      <!-- DATA -->
+      <div class="tool-card" data-category="data" data-name="julius ai">
+        <div class="tool-header">
+          <div class="tool-logo">📊</div>
+          <div class="tool-rating">★★★★☆ 4.5</div>
+        </div>
+        <div>
+          <h3>Julius AI</h3>
+          <div class="tag" style="margin-bottom:10px;">Data</div>
+        </div>
+        <p>The best AI data analyst on the market. Upload spreadsheets, run Python, generate visualizations — all via natural language. Replaced junior analysts at dozens of our clients.</p>
+        <div class="nexlyr-score">
+          <span class="score-label">Nexlyr</span>
+          <div class="score-bar-wrap"><div class="score-bar" style="width:90%"></div></div>
+          <span class="score-num">90</span>
+        </div>
+        <div class="tool-footer">
+          <span class="tool-pricing">Free → $22/mo</span>
+          <a href="#" class="tool-link">Full review →</a>
+        </div>
+      </div>
+
+      <!-- RESEARCH -->
+      <div class="tool-card" data-category="research" data-name="perplexity">
+        <div class="tool-header">
+          <div class="tool-logo">🔍</div>
+          <div class="tool-rating">★★★★★ 4.7</div>
+        </div>
+        <div>
+          <h3>Perplexity Pro</h3>
+          <div class="tag tag-accent" style="margin-bottom:10px;">Research ★ Pick</div>
+        </div>
+        <p>Real-time web search with AI synthesis and source citations. The best research companion for knowledge workers who need fast, accurate, referenced answers.</p>
+        <div class="nexlyr-score">
+          <span class="score-label">Nexlyr</span>
+          <div class="score-bar-wrap"><div class="score-bar" style="width:92%"></div></div>
+          <span class="score-num">92</span>
+        </div>
+        <div class="tool-footer">
+          <span class="tool-pricing">Free → $20/mo Pro</span>
+          <a href="#" class="tool-link">Full review →</a>
+        </div>
+      </div>
+
+      <!-- OPS -->
+      <div class="tool-card" data-category="ops" data-name="notion ai">
+        <div class="tool-header">
+          <div class="tool-logo">📋</div>
+          <div class="tool-rating">★★★★☆ 4.3</div>
+        </div>
+        <div>
+          <h3>Notion AI</h3>
+          <div class="tag" style="margin-bottom:10px;">Operations</div>
+        </div>
+        <p>Deep workspace integration for teams already on Notion. AI search across all company knowledge, meeting summaries, and action item extraction make it a strong ops hub.</p>
+        <div class="nexlyr-score">
+          <span class="score-label">Nexlyr</span>
+          <div class="score-bar-wrap"><div class="score-bar" style="width:84%"></div></div>
+          <span class="score-num">84</span>
+        </div>
+        <div class="tool-footer">
+          <span class="tool-pricing">$10/mo add-on</span>
+          <a href="#" class="tool-link">Full review →</a>
+        </div>
+      </div>
+
+      <div class="tool-card" data-category="ops" data-name="make zapier">
+        <div class="tool-header">
+          <div class="tool-logo">⚙️</div>
+          <div class="tool-rating">★★★★☆ 4.4</div>
+        </div>
+        <div>
+          <h3>Make (Integromat)</h3>
+          <div class="tag" style="margin-bottom:10px;">Operations</div>
+        </div>
+        <p>The most powerful no-code automation platform for building complex AI-powered workflows. Significantly more flexible than Zapier for multi-step, conditional automations.</p>
+        <div class="nexlyr-score">
+          <span class="score-label">Nexlyr</span>
+          <div class="score-bar-wrap"><div class="score-bar" style="width:87%"></div></div>
+          <span class="score-num">87</span>
+        </div>
+        <div class="tool-footer">
+          <span class="tool-pricing">Free → $9/mo Core</span>
+          <a href="#" class="tool-link">Full review →</a>
+        </div>
+      </div>
+
+      <!-- FINANCE -->
+      <div class="tool-card" data-category="finance" data-name="finpilot">
+        <div class="tool-header">
+          <div class="tool-logo">💹</div>
+          <div class="tool-rating">★★★★☆ 4.4</div>
+        </div>
+        <div>
+          <h3>FinPilot</h3>
+          <div class="tag" style="margin-bottom:10px;">Finance</div>
+        </div>
+        <p>AI copilot for financial analysts. Reads 10-Ks, earnings transcripts, and market data to produce structured financial summaries and comparable company analyses in minutes.</p>
+        <div class="nexlyr-score">
+          <span class="score-label">Nexlyr</span>
+          <div class="score-bar-wrap"><div class="score-bar" style="width:86%"></div></div>
+          <span class="score-num">86</span>
+        </div>
+        <div class="tool-footer">
+          <span class="tool-pricing">From $49/mo</span>
+          <a href="#" class="tool-link">Full review →</a>
+        </div>
+      </div>
+
+      <!-- MARKETING -->
+      <div class="tool-card" data-category="marketing" data-name="copy.ai">
+        <div class="tool-header">
+          <div class="tool-logo">📣</div>
+          <div class="tool-rating">★★★★☆ 4.1</div>
+        </div>
+        <div>
+          <h3>Copy.ai</h3>
+          <div class="tag" style="margin-bottom:10px;">Marketing</div>
+        </div>
+        <p>End-to-end GTM AI platform covering everything from prospecting emails to ad copy to SEO briefs. Best for marketing teams wanting one platform across the full funnel.</p>
+        <div class="nexlyr-score">
+          <span class="score-label">Nexlyr</span>
+          <div class="score-bar-wrap"><div class="score-bar" style="width:79%"></div></div>
+          <span class="score-num">79</span>
+        </div>
+        <div class="tool-footer">
+          <span class="tool-pricing">Free → $49/mo Starter</span>
+          <a href="#" class="tool-link">Full review →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- LOAD MORE -->
+    <div style="text-align:center;margin-top:56px;">
+      <p style="color:var(--text-muted);font-family:var(--font-mono);font-size:0.78rem;margin-bottom:20px;">Showing 14 of 340 curated tools</p>
+      <a href="./contact.html" class="btn btn-ghost">
+        Request Full Database Access →
+      </a>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="../js/nexlyr-3d.js"></script>
+<script src="../js/components.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    Nexlyr.initNav();
+
+    const pills = document.querySelectorAll('.filter-pill');
+    const cards = document.querySelectorAll('.tool-card');
+    const countEl = document.getElementById('tool-count');
+    const searchEl = document.getElementById('tool-search');
+
+    function updateVisible() {
+      const activeFilter = document.querySelector('.filter-pill.active').dataset.filter;
+      const query = searchEl.value.toLowerCase();
+      let count = 0;
+      cards.forEach(card => {
+        const cat = card.dataset.category;
+        const name = card.dataset.name;
+        const matchFilter = activeFilter === 'all' || cat === activeFilter;
+        const matchSearch = !query || name.includes(query) || cat.includes(query);
+        if (matchFilter && matchSearch) { card.classList.remove('hidden'); count++; }
+        else card.classList.add('hidden');
+      });
+      countEl.textContent = `Showing ${count} tools`;
+    }
+
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        pills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        updateVisible();
+      });
+    });
+
+    searchEl.addEventListener('input', updateVisible);
+  });
+</script>
+</body>
+</html>

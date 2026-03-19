@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Nexlyr</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .contact-layout {
+      padding: calc(var(--nav-h) + 80px) 0 120px;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 80px;
+      align-items: start;
+      position: relative;
+    }
+
+    /* LEFT COLUMN */
+    .contact-info h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      margin-bottom: 24px;
+    }
+
+    .contact-info h1 em {
+      font-style: italic;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.25);
+    }
+
+    .contact-info p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 48px;
+    }
+
+    .contact-methods {
+      display: flex; flex-direction: column; gap: 20px;
+    }
+
+    .contact-method {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 20px 24px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: border-color 0.2s;
+    }
+
+    .contact-method:hover { border-color: var(--border-glow); }
+
+    .cm-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      border: 1px solid var(--border-glow);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+
+    .cm-text strong { display: block; font-size: 0.875rem; margin-bottom: 2px; }
+    .cm-text span { color: var(--text-secondary); font-size: 0.8rem; font-family: var(--font-mono); }
+
+    /* FORM */
+    .contact-form-wrap {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 52px;
+      position: sticky; top: calc(var(--nav-h) + 24px);
+    }
+
+    .form-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .form-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-bottom: 36px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 13px 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--border-glow);
+      box-shadow: 0 0 0 3px rgba(79,140,255,0.08);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--text-muted); }
+
+    .form-group select option { background: var(--panel); }
+
+    .form-group textarea { resize: vertical; min-height: 120px; }
+
+    .form-check {
+      display: flex; align-items: flex-start; gap: 12px;
+      margin: 20px 0 28px;
+    }
+
+    .form-check input[type="checkbox"] {
+      width: 18px; height: 18px; flex-shrink: 0;
+      accent-color: var(--accent);
+      margin-top: 1px;
+    }
+
+    .form-check label {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .form-success.show { display: block; }
+
+    /* OFFICES */
+    .offices {
+      padding: 100px 0;
+      background: var(--deep);
+      border-top: 1px solid var(--border);
+    }
+
+    .offices-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .office-card {
+      padding: 32px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--panel);
+    }
+
+    .office-city {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .office-role {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+
+    .office-addr {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 1024px) {
+      .contact-layout { grid-template-columns: 1fr; gap: 48px; }
+      .contact-form-wrap { position: static; }
+      .offices-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form-wrap { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+
+<section>
+  <div class="container">
+    <div class="contact-layout">
+
+      <!-- LEFT -->
+      <div class="contact-info">
+        <div class="orb orb-blue" style="width:400px;height:400px;top:0;left:-100px;"></div>
+        <div class="section-label fade-up">Let's Talk</div>
+        <h1 class="fade-up fade-up-d1">
+          Start your AI<br><em>transformation</em><br>today
+        </h1>
+        <p class="fade-up fade-up-d2">
+          Book a free 30-minute discovery call. We'll map your current stack, identify the highest-leverage opportunities, and give you an honest assessment — no pitch deck required.
+        </p>
+
+        <div class="contact-methods fade-up fade-up-d3">
+          <div class="contact-method">
+            <div class="cm-icon">📅</div>
+            <div class="cm-text">
+              <strong>Discovery Call</strong>
+              <span>30 min · Free · Book directly via the form</span>
+            </div>
+          </div>
+          <div class="contact-method">
+            <div class="cm-icon">✉️</div>
+            <div class="cm-text">
+              <strong>Email Us</strong>
+              <span>hello@nexlyr.com</span>
+            </div>
+          </div>
+          <div class="contact-method">
+            <div class="cm-icon">⚡</div>
+            <div class="cm-text">
+              <strong>Existing Clients</strong>
+              <span>Priority line: support@nexlyr.com</span>
+            </div>
+          </div>
+          <div class="contact-method">
+            <div class="cm-icon">🌍</div>
+            <div class="cm-text">
+              <strong>Response Time</strong>
+              <span>We reply within 4 business hours</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div class="contact-form-wrap fade-up fade-up-d2">
+        <div id="form-view">
+          <div class="form-title">Book Your Discovery Call</div>
+          <p class="form-subtitle">Fill in a few details and we'll reach out within 4 hours to schedule.</p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" placeholder="Jane" />
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" placeholder="Smith" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Work Email</label>
+            <input type="email" placeholder="jane@company.com" />
+          </div>
+
+          <div class="form-group">
+            <label>Company</label>
+            <input type="text" placeholder="Acme Corp" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Team Size</label>
+              <select>
+                <option value="">Select...</option>
+                <option>1–10</option>
+                <option>11–50</option>
+                <option>51–200</option>
+                <option>201–1000</option>
+                <option>1000+</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Primary Interest</label>
+              <select>
+                <option value="">Select...</option>
+                <option>AI Tool Intelligence</option>
+                <option>Stack Engineering</option>
+                <option>Stack Audit</option>
+                <option>AI Strategy</option>
+                <option>Team Training</option>
+                <option>Retainer</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>What's your biggest AI challenge right now?</label>
+            <textarea placeholder="Tell us briefly what you're working on or where you feel stuck..."></textarea>
+          </div>
+
+          <div class="form-check">
+            <input type="checkbox" id="consent" />
+            <label for="consent">I agree to be contacted by Nexlyr regarding this inquiry. We never share your data with third parties.</label>
+          </div>
+
+          <button class="btn btn-primary" style="width:100%;justify-content:center;font-size:0.95rem;padding:15px;" onclick="submitForm()">
+            Send & Book Discovery Call →
+          </button>
+        </div>
+
+        <div class="form-success" id="form-success">
+          <div style="font-size:3rem;margin-bottom:16px;">✅</div>
+          <h3 style="font-family:var(--font-display);font-size:1.5rem;font-weight:700;margin-bottom:12px;">We've got your message!</h3>
+          <p style="color:var(--text-secondary);line-height:1.7;">Expect an email within 4 business hours with calendar link to book your discovery call. Keep an eye on your inbox — we'll be in touch soon.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- OFFICES -->
+<section class="offices">
+  <div class="container">
+    <div class="section-label">Where We Are</div>
+    <h2 class="section-title">Global presence,<br><em>local understanding</em></h2>
+    <div class="offices-grid">
+      <div class="office-card">
+        <div class="office-city">San Francisco</div>
+        <div class="office-role">HEADQUARTERS</div>
+        <div class="office-addr">340 Brannan Street, Suite 900<br>San Francisco, CA 94107<br>United States</div>
+      </div>
+      <div class="office-card">
+        <div class="office-city">London</div>
+        <div class="office-role">EUROPE HQ</div>
+        <div class="office-addr">9 Appold Street<br>London, EC2A 2AP<br>United Kingdom</div>
+      </div>
+      <div class="office-card">
+        <div class="office-city">Singapore</div>
+        <div class="office-role">APAC HQ</div>
+        <div class="office-addr">1 Raffles Quay, #22-10<br>Singapore, 048583</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="../js/nexlyr-3d.js"></script>
+<script src="../js/components.js"></script>
+<script>
+  function submitForm() {
+    document.getElementById('form-view').style.display = 'none';
+    document.getElementById('form-success').classList.add('show');
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    Nexlyr.initNav();
+  });
+</script>
+</body>
+</html>
