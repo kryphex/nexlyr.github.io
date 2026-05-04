@@ -1,720 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nexlyr — AI Tools & SaaS Intelligence</title>
-  <meta name="description" content="Nexlyr surfaces, evaluates, and integrates the world's most powerful AI tools so your business moves faster than your competition." />
-  <link rel="stylesheet" href="./css/style.css" />
-  <style>
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      padding-top: var(--nav-h);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-bg {
-      position: absolute; inset: 0; z-index: 0;
-      background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(79,140,255,0.06) 0%, transparent 70%),
-                  radial-gradient(ellipse 60% 80% at 20% 80%, rgba(0,212,184,0.04) 0%, transparent 60%);
-    }
-
-    .hero-content {
-      position: relative; z-index: 2;
-      padding: 80px 0 80px 48px;
-    }
-
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 8px 18px;
-      border: 1px solid var(--border-glow);
-      border-radius: 100px;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      color: var(--accent);
-      margin-bottom: 32px;
-      animation: fadeUp 0.7s var(--ease-silk) both;
-    }
-
-    .hero-eyebrow span {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%,100% { opacity: 1; transform: scale(1); }
-      50%      { opacity: 0.5; transform: scale(0.8); }
-    }
-
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 7vw, 5.5rem);
-      font-weight: 900;
-      line-height: 1.0;
-      letter-spacing: -0.04em;
-      margin-bottom: 28px;
-      animation: fadeUp 0.8s var(--ease-silk) 0.1s both;
-    }
-
-    .hero-title .line-accent {
-      display: block;
-      background: linear-gradient(90deg, var(--accent), var(--teal));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-title .line-outline {
-      display: block;
-      color: transparent;
-      -webkit-text-stroke: 1.5px rgba(255,255,255,0.2);
-    }
-
-    .hero-desc {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-      max-width: 500px;
-      line-height: 1.8;
-      margin-bottom: 44px;
-      animation: fadeUp 0.8s var(--ease-silk) 0.2s both;
-    }
-
-    .hero-actions {
-      display: flex; align-items: center; gap: 20px;
-      flex-wrap: wrap;
-      animation: fadeUp 0.8s var(--ease-silk) 0.3s both;
-    }
-
-    .hero-trust {
-      margin-top: 64px;
-      padding-top: 40px;
-      border-top: 1px solid var(--border);
-      animation: fadeUp 0.8s var(--ease-silk) 0.4s both;
-    }
-
-    .hero-trust p {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-bottom: 20px;
-    }
-
-    .trust-logos {
-      display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
-    }
-
-    .trust-logo {
-      font-family: var(--font-display);
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      opacity: 0.5;
-      letter-spacing: -0.02em;
-    }
-
-    /* Canvas container */
-    .hero-canvas-wrap {
-      position: relative; z-index: 1;
-      display: flex; align-items: center; justify-content: center;
-      height: 100vh;
-    }
-
-    #hero-canvas {
-      width: 100%; height: 100%;
-      display: block;
-    }
-
-    .hero-canvas-glow {
-      position: absolute; inset: 0;
-      background: radial-gradient(circle at 50% 50%, rgba(79,140,255,0.08), transparent 70%);
-      pointer-events: none;
-    }
-
-    /* ── STATS ── */
-    .stats {
-      padding: 80px 0;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      background: var(--deep);
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-    }
-
-    .stat-item {
-      padding: 40px 48px;
-      border-right: 1px solid var(--border);
-      text-align: center;
-    }
-
-    .stat-item:last-child { border-right: none; }
-
-    .stat-label {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-top: 12px;
-    }
-
-    /* ── WHY ── */
-    .why { padding: 120px 0; }
-
-    .why-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-
-    .why-features { display: flex; flex-direction: column; gap: 32px; }
-
-    .feature-item {
-      display: flex; gap: 20px;
-      padding: 24px;
-      border-radius: 12px;
-      border: 1px solid transparent;
-      transition: all 0.3s var(--ease-silk);
-      cursor: default;
-    }
-
-    .feature-item:hover {
-      border-color: var(--border-glow);
-      background: var(--accent-soft);
-    }
-
-    .feature-icon {
-      width: 44px; height: 44px; flex-shrink: 0;
-      border-radius: 10px;
-      background: var(--accent-soft);
-      border: 1px solid var(--border-glow);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem;
-    }
-
-    .feature-text h3 {
-      font-family: var(--font-display);
-      font-size: 1.05rem;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .feature-text p {
-      color: var(--text-secondary);
-      font-size: 0.875rem;
-      line-height: 1.7;
-    }
-
-    /* ── SERVICES PREVIEW ── */
-    .services-preview { padding: 120px 0; background: var(--deep); }
-
-    .services-cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: 64px;
-    }
-
-    .service-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 40px 36px;
-      transition: all 0.35s var(--ease-silk);
-      position: relative; overflow: hidden;
-      text-decoration: none; color: inherit;
-      display: block;
-    }
-
-    .service-card::after {
-      content: '';
-      position: absolute; bottom: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent), var(--teal));
-      transform: scaleX(0);
-      transition: transform 0.4s var(--ease-silk);
-    }
-
-    .service-card:hover { transform: translateY(-6px); border-color: var(--border-glow); }
-    .service-card:hover::after { transform: scaleX(1); }
-
-    .service-num {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--accent);
-      letter-spacing: 0.12em;
-      margin-bottom: 24px;
-    }
-
-    .service-card h3 {
-      font-family: var(--font-display);
-      font-size: 1.35rem;
-      font-weight: 600;
-      margin-bottom: 14px;
-      line-height: 1.25;
-    }
-
-    .service-card p {
-      color: var(--text-secondary);
-      font-size: 0.875rem;
-      line-height: 1.75;
-    }
-
-    .service-arrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      margin-top: 28px;
-      font-size: 0.8rem;
-      color: var(--accent);
-      font-family: var(--font-mono);
-      letter-spacing: 0.06em;
-    }
-
-    /* ── PROCESS ── */
-    .process { padding: 120px 0; }
-
-    .process-steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-      margin-top: 72px;
-      position: relative;
-    }
-
-    .process-steps::before {
-      content: '';
-      position: absolute;
-      top: 24px; left: 60px; right: 60px;
-      height: 1px;
-      background: linear-gradient(90deg, var(--accent), var(--teal), var(--violet), var(--accent));
-      opacity: 0.3;
-    }
-
-    .process-step {
-      padding: 0 28px;
-      text-align: center;
-      position: relative;
-    }
-
-    .step-num {
-      width: 48px; height: 48px;
-      border-radius: 50%;
-      background: var(--panel);
-      border: 1px solid var(--border-glow);
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--accent);
-      margin: 0 auto 28px;
-      position: relative; z-index: 1;
-    }
-
-    .process-step h3 {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 12px;
-    }
-
-    .process-step p {
-      color: var(--text-secondary);
-      font-size: 0.85rem;
-      line-height: 1.7;
-    }
-
-    /* ── TESTIMONIALS ── */
-    .testimonials { padding: 120px 0; background: var(--deep); }
-
-    .testi-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: 64px;
-    }
-
-    .testi-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 36px;
-    }
-
-    .testi-stars {
-      color: #f59e0b;
-      font-size: 0.85rem;
-      letter-spacing: 2px;
-      margin-bottom: 20px;
-    }
-
-    .testi-quote {
-      font-family: var(--font-display);
-      font-size: 1.05rem;
-      font-style: italic;
-      color: var(--text-primary);
-      line-height: 1.65;
-      margin-bottom: 28px;
-    }
-
-    .testi-author {
-      display: flex; align-items: center; gap: 14px;
-    }
-
-    .testi-avatar {
-      width: 40px; height: 40px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--teal));
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 600; font-size: 0.85rem; color: var(--void);
-    }
-
-    .testi-info strong { display: block; font-size: 0.875rem; }
-    .testi-info span { font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono); }
-
-    /* ── CTA BAND ── */
-    .cta-band {
-      padding: 120px 0;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-band-bg {
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(79,140,255,0.1), transparent 70%);
-    }
-
-    .cta-band h2 {
-      font-family: var(--font-display);
-      font-size: clamp(2.4rem, 6vw, 4.5rem);
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      margin-bottom: 24px;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .cta-band p {
-      color: var(--text-secondary);
-      font-size: 1.1rem;
-      max-width: 500px;
-      margin: 0 auto 44px;
-    }
-
-    .cta-actions {
-      display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 1024px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero-canvas-wrap { height: 50vh; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .stat-item:nth-child(2) { border-right: none; }
-      .stat-item:nth-child(3) { border-top: 1px solid var(--border); }
-      .process-steps { grid-template-columns: repeat(2, 1fr); gap: 40px; }
-      .process-steps::before { display: none; }
-      .why-grid { grid-template-columns: 1fr; }
-      .services-cards { grid-template-columns: 1fr; }
-      .testi-grid { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 768px) {
-      .hero-content { padding: 60px 24px; }
-      .stats-grid { grid-template-columns: 1fr 1fr; }
-      .stat-item { border-right: none; border-bottom: 1px solid var(--border); padding: 28px 24px; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEXUS ELITE — Sovereign Intelligence for the Few</title>
+  
+  <!-- Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Syncopate:wght@400;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <!-- Strict CSS Isolation -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- 3D Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
+  <!-- Atmospheric Elements -->
+  <div id="noise"></div>
+  <div id="cx"></div>
+  <div id="cr"></div>
 
-<div id="nav-placeholder"></div>
+  <!-- Navigation -->
+  <nav id="nav">
+    <div class="nav-logo" onclick="sp('home')">
+      <div class="trio">
+        <div class="trio-dot k"></div>
+        <div class="trio-dot v"></div>
+        <div class="trio-dot n"></div>
+      </div>
+      NEXUS ELITE
+    </div>
+    <ul class="nav-links">
+      <li><a onclick="sp('home')" data-p="home">Convergence</a></li>
+      <li><a onclick="sp('about')" data-p="about">Origin</a></li>
+      <li><a onclick="sp('docs')" data-p="docs">Protocols</a></li>
+      <li><a onclick="sp('intel')" data-p="intel">Intel</a></li>
+      <li><a onclick="sp('pricing')" data-p="pricing">Access</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="nav-badge">
+        <div class="badge-pulse"></div>PRIVATE · SOVEREIGN · ELITE
+      </div>
+      <button class="btn btn-ghost-sm" onclick="openChat()">Initiate Session</button>
+    </div>
+  </nav>
 
-<!-- ── HERO ── -->
-<section class="hero">
-  <div class="hero-bg"></div>
+  <!-- Convergence (Home) Page -->
+  <div id="page-home" class="page active">
+    <section class="hero">
+      <canvas id="hcanvas"></canvas>
+      <div class="hero-inner">
+        <div class="hero-left">
+          <p class="hero-eyebrow">NEXUS ELITE // Sovereign Protocol</p>
+          <h1 class="hero-title">
+            <span class="l1">Sovereign</span>
+            <span class="l2">Intelligence</span>
+            <span class="l3">// for the select few who qualify</span>
+          </h1>
+          <p class="hero-sub">NEXUS ELITE is a sovereign intelligence environment engineered for <strong>hedge funds, quants, and financial leaders</strong> who operate at the highest tier and demand absolute precision.</p>
+          <div class="hero-actions">
+            <button class="btn btn-apex" onclick="openChat()"><span>Begin Session</span></button>
+            <button class="btn btn-solid" onclick="sp('pricing')"><span>View Access</span></button>
+          </div>
+        </div>
+        
+        <div class="heritage-panel rv">
+          <div class="hp-head">
+            <span class="hp-title">// Elite Performance Matrix</span>
+            <div class="hp-dots">
+              <div class="hd k"></div>
+              <div class="hd v"></div>
+              <div class="hd n"></div>
+            </div>
+          </div>
+          <div class="hp-body">
+            <div class="service-row">
+              <div class="sr-left">
+                <div class="sr-brand k">KRY</div>
+                <div class="sr-info">
+                  <h4>Precision Core</h4>
+                  <p>Precision Intelligence</p>
+                </div>
+              </div>
+              <div class="sr-stat">
+                <div class="sr-num" data-target="2.4" data-suffix="B">0</div>
+                <div class="sr-lbl">AUM Processed</div>
+              </div>
+            </div>
+            <div class="service-row">
+              <div class="sr-left">
+                <div class="sr-brand v">VAR</div>
+                <div class="sr-info">
+                  <h4>Institutional Core</h4>
+                  <p>Sovereign Analytics</p>
+                </div>
+              </div>
+              <div class="sr-stat">
+                <div class="sr-num" data-target="847" data-suffix="">0</div>
+                <div class="sr-lbl">Signals/sec</div>
+              </div>
+            </div>
+            <div class="service-row">
+              <div class="sr-left">
+                <div class="sr-brand nx">NX</div>
+                <div class="sr-info">
+                  <h4>NEXUS ELITE</h4>
+                  <p>Sovereign Intelligence Layer</p>
+                </div>
+              </div>
+              <div class="sr-stat">
+                <div class="sr-num" style="font-size:13px;color:var(--fin-gold);font-family:'DM Mono',monospace;letter-spacing:.05em;">ACTIVE</div>
+                <div class="sr-lbl">Status</div>
+              </div>
+            </div>
+          </div>
+          <div class="hp-footer">
+            <div class="badge-pulse" style="background:var(--fin-gold);"></div>
+            All systems synchronized · Sovereign Protocol online
+          </div>
+        </div>
+      </div>
+      <div class="hero-scroll-hint">
+        <span>Descend</span>
+        <div class="scroll-bar"></div>
+      </div>
+    </section>
 
-  <div class="hero-content">
-    <div class="hero-eyebrow">
-      <span></span>
-      AI Tools Intelligence Platform — 2026
+    <!-- Marquee -->
+    <div class="mbar">
+      <div class="mtrack">
+        <span class="mitem">Precision Core <b>·</b> White Precision</span>
+        <span class="mitem">Institutional Core <b>·</b> Navy Sovereign</span>
+        <span class="mitem">NEXUS ELITE <b>·</b> Convergence Point</span>
+        <span class="mitem">Hedge Fund Intelligence <b>·</b> Unreplicable Edge</span>
+        <span class="mitem">Quant Signal Processing <b>·</b> 0.3ms Latency</span>
+      </div>
     </div>
 
-    <h1 class="hero-title">
-      <span>The Intelligence</span>
-      <span class="line-accent">Layer for</span>
-      <span class="line-outline">Modern Teams</span>
-    </h1>
-
-    <p class="hero-desc">
-      We discover, evaluate, and deploy the most powerful AI tools on Earth — so your business compounds faster than your competition can catch up.
-    </p>
-
-    <div class="hero-actions">
-      <a href="./pages/services.html" class="btn btn-primary">
-        Explore Services
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      </a>
-      <a href="./pages/tools.html" class="btn btn-ghost">View AI Directory</a>
+    <!-- Sections -->
+    <div class="sw">
+      <p class="eyebrow rv">Elite Architecture</p>
+      <h2 class="display-h rv">One sovereign system.<br><em>Elite by architecture.</em><br><span class="ghost">Built for the highest level only.</span></h2>
     </div>
+    
+    <div class="divider"></div>
+    
+    <div class="sw">
+      <p class="eyebrow rv">Performance</p>
+      <h2 class="display-h rv" style="font-size:clamp(40px,5vw,72px);">Numbers that<br><em>move markets.</em></h2>
+      <div class="metrics-grid rv">
+        <div class="metric-cell">
+          <div class="metric-n" data-target="99.99">0</div>
+          <div class="metric-l">Uptime SLA %</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-n" data-target="340">0</div>
+          <div class="metric-l">Elite Clients</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-n" data-target="1" data-suffix="B">0</div>
+          <div class="metric-l">Token Context</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-n" data-target="0.3" data-suffix="ms">0</div>
+          <div class="metric-l">Signal Latency</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="pline"></div>
+    
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="ft-grid">
+        <div>
+          <div class="ft-logo">NEXUS ELITE</div>
+          <p class="ft-tag">A sovereign intelligence layer built exclusively for top-tier financial operators.</p>
+        </div>
+        <div class="ft-col">
+          <h4>Platform</h4>
+          <ul>
+            <li><a onclick="sp('home')">Convergence</a></li>
+            <li><a onclick="sp('docs')">Protocols</a></li>
+            <li><a onclick="sp('pricing')">Access</a></li>
+          </ul>
+        </div>
+        <div class="ft-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a onclick="sp('about')">Origin</a></li>
+            <li><a onclick="sp('intel')">Intel</a></li>
+          </ul>
+        </div>
+        <div class="ft-col">
+          <h4>Sovereign</h4>
+          <ul>
+            <li><a href="#">Status</a></li>
+            <li><a href="#">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="ft-bar">
+        <p>© 2026 NEXUS ELITE — SOVEREIGN PROTOCOL · ALL RIGHTS RESERVED</p>
+        <p>PRIVATE · SOVEREIGN · ELITE // CONVERGENCE v1.0</p>
+      </div>
+    </footer>
+  </div>
 
-    <div class="hero-trust">
-      <p>Trusted by forward-thinking teams at</p>
-      <div class="trust-logos">
-        <span class="trust-logo">Vercel</span>
-        <span class="trust-logo">Notion</span>
-        <span class="trust-logo">Linear</span>
-        <span class="trust-logo">Figma</span>
-        <span class="trust-logo">Stripe</span>
+  <!-- Other Pages (Hidden by default) -->
+  <div id="page-about" class="page">
+    <div class="about-hero">
+      <div style="position:relative;z-index:2;max-width:900px;">
+        <p class="eyebrow">Origin Protocol</p>
+        <h1 class="display-h">Two systems<br><em>built separate.</em><br><span class="ghost">One truth made them converge.</span></h1>
       </div>
     </div>
   </div>
 
-  <div class="hero-canvas-wrap">
-    <canvas id="hero-canvas"></canvas>
-    <div class="hero-canvas-glow"></div>
-  </div>
-</section>
-
-<!-- ── STATS ── -->
-<section class="stats">
-  <div class="container">
-    <div class="stats-grid">
-      <div class="stat-item" data-reveal>
-        <div class="stat-number" data-count="2400" data-suffix="+">0</div>
-        <div class="stat-label">AI Tools Evaluated</div>
-      </div>
-      <div class="stat-item" data-reveal>
-        <div class="stat-number" data-count="340" data-suffix="+">0</div>
-        <div class="stat-label">Companies Served</div>
-      </div>
-      <div class="stat-item" data-reveal>
-        <div class="stat-number" data-count="98" data-suffix="%">0</div>
-        <div class="stat-label">Client Retention</div>
-      </div>
-      <div class="stat-item" data-reveal>
-        <div class="stat-number" data-count="4" data-suffix="x">0</div>
-        <div class="stat-label">Average ROI Multiplier</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── WHY ── -->
-<section class="why">
-  <div class="container">
-    <div class="why-grid">
-      <div>
-        <div class="section-label">Why Nexlyr</div>
-        <h2 class="section-title">
-          The AI landscape is<br>
-          <em>impossibly</em> vast.
-        </h2>
-        <p class="section-subtitle">
-          Over 15,000 AI tools launched in 2025 alone. Most are noise. We spend thousands of hours so you don't have to — delivering only the signal that moves your business forward.
-        </p>
-        <a href="./pages/about.html" class="btn btn-ghost" style="margin-top:36px;">
-          Our methodology →
-        </a>
-      </div>
-      <div class="why-features">
-        <div class="feature-item" data-reveal>
-          <div class="feature-icon">🔬</div>
-          <div class="feature-text">
-            <h3>Rigorous Evaluation</h3>
-            <p>Every tool goes through a 47-point assessment covering performance, security, pricing, and integration depth.</p>
-          </div>
-        </div>
-        <div class="feature-item" data-reveal>
-          <div class="feature-icon">⚡</div>
-          <div class="feature-text">
-            <h3>Rapid Integration</h3>
-            <p>From shortlist to live deployment in days, not months. Our engineers handle the complexity.</p>
-          </div>
-        </div>
-        <div class="feature-item" data-reveal>
-          <div class="feature-icon">📈</div>
-          <div class="feature-text">
-            <h3>Compounding Returns</h3>
-            <p>AI stacks that grow more powerful over time as your data flywheel accelerates and models improve.</p>
-          </div>
-        </div>
-        <div class="feature-item" data-reveal>
-          <div class="feature-icon">🛡️</div>
-          <div class="feature-text">
-            <h3>Enterprise Security</h3>
-            <p>Every recommendation vetted for SOC 2, GDPR, and data residency requirements before it reaches your stack.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ── SERVICES PREVIEW ── -->
-<section class="services-preview">
-  <div class="container">
-    <div class="section-label">What We Do</div>
-    <h2 class="section-title">Intelligence services<br><em>at every layer</em></h2>
-    <div class="services-cards">
-      <a href="./pages/services.html#discovery" class="service-card">
-        <div class="service-num">01 / Discovery</div>
-        <h3>AI Tool Intelligence</h3>
-        <p>Continuous monitoring of 15,000+ tools. We surface what's actually worth your attention — before your competitors find it.</p>
-        <div class="service-arrow">Learn more →</div>
-      </a>
-      <a href="./pages/services.html#integration" class="service-card">
-        <div class="service-num">02 / Integration</div>
-        <h3>Stack Engineering</h3>
-        <p>Full-stack AI integration from API to UI. We architect, build, and deploy systems that plug directly into your workflows.</p>
-        <div class="service-arrow">Learn more →</div>
-      </a>
-      <a href="./pages/services.html#strategy" class="service-card">
-        <div class="service-num">03 / Strategy</div>
-        <h3>AI Transformation</h3>
-        <p>Roadmapping and change management for teams making the leap from manual to AI-native operations.</p>
-        <div class="service-arrow">Learn more →</div>
-      </a>
-      <a href="./pages/services.html#audit" class="service-card">
-        <div class="service-num">04 / Audit</div>
-        <h3>Stack Audit</h3>
-        <p>Identify redundancies, security gaps, and underperforming tools in your current AI stack. Most clients save 30% on tooling costs.</p>
-        <div class="service-arrow">Learn more →</div>
-      </a>
-      <a href="./pages/services.html#training" class="service-card">
-        <div class="service-num">05 / Enablement</div>
-        <h3>Team Training</h3>
-        <p>Workshop programs that turn your team from AI-curious to AI-native in 30 days. Practical, contextual, measurable.</p>
-        <div class="service-arrow">Learn more →</div>
-      </a>
-      <a href="./pages/pricing.html" class="service-card">
-        <div class="service-num">06 / Retainer</div>
-        <h3>Ongoing Intelligence</h3>
-        <p>Monthly briefings, quarterly stack reviews, and always-on access to our research team. Stay permanently ahead.</p>
-        <div class="service-arrow">See pricing →</div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ── PROCESS ── -->
-<section class="process">
-  <div class="container">
-    <div class="section-label">How It Works</div>
-    <h2 class="section-title">From chaos to clarity<br>in four steps</h2>
-    <div class="process-steps">
-      <div class="process-step" data-reveal>
-        <div class="step-num">01</div>
-        <h3>Discovery Call</h3>
-        <p>We map your current stack, goals, and team to understand exactly where AI can create leverage.</p>
-      </div>
-      <div class="process-step" data-reveal>
-        <div class="step-num">02</div>
-        <h3>Intelligence Brief</h3>
-        <p>Within 72 hours, you receive a curated shortlist with evaluations, comparisons, and a recommended path.</p>
-      </div>
-      <div class="process-step" data-reveal>
-        <div class="step-num">03</div>
-        <h3>Integration Sprint</h3>
-        <p>Our engineers implement selected tools in rapid 2-week sprints with testing, documentation, and training.</p>
-      </div>
-      <div class="process-step" data-reveal>
-        <div class="step-num">04</div>
-        <h3>Compound & Scale</h3>
-        <p>Monthly reviews track ROI and surface new opportunities as your AI stack learns and compounds.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ── TESTIMONIALS ── -->
-<section class="testimonials">
-  <div class="container">
-    <div class="section-label">Client Voices</div>
-    <h2 class="section-title">What our clients say</h2>
-    <div class="testi-grid">
-      <div class="testi-card" data-reveal>
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">"Nexlyr cut our tool evaluation time by 90%. We went from a messy 40-tool stack to a lean 12-tool stack that actually compounds value."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">SK</div>
-          <div class="testi-info">
-            <strong>Sarah K.</strong>
-            <span>Head of Ops — Meridian Capital</span>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card" data-reveal>
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">"The AI stack audit alone uncovered $80k/yr in redundant subscriptions. ROI hit before we even started the integration work."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">JP</div>
-          <div class="testi-info">
-            <strong>James P.</strong>
-            <span>CTO — Helios Labs</span>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card" data-reveal>
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">"Their intelligence briefings are the only thing I share with our board every quarter. Absolutely essential signal in a noisy market."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">AR</div>
-          <div class="testi-info">
-            <strong>Anika R.</strong>
-            <span>CEO — Folia Studio</span>
-          </div>
+  <div id="page-docs" class="page">
+    <div class="docs-wrap">
+      <aside class="docs-side"></aside>
+      <div class="docs-main">
+        <div class="docs-lede">
+          <h1>NEXUS ELITE<br><span style="color:var(--var-silver);">Protocols</span></h1>
         </div>
       </div>
     </div>
   </div>
-</section>
 
-<!-- ── CTA BAND ── -->
-<section class="cta-band">
-  <div class="cta-band-bg"></div>
-  <div class="container" style="position:relative;z-index:1;">
-    <div class="section-label" style="justify-content:center;">Start Today</div>
-    <h2>Ready to build an AI stack<br><em>that actually works?</em></h2>
-    <p>Book a free 30-minute discovery call. No pitch decks, no fluff — just an honest look at where AI can move the needle for you.</p>
-    <div class="cta-actions">
-      <a href="./pages/contact.html" class="btn btn-primary" style="font-size:1rem;padding:16px 40px;">
-        Book Discovery Call
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-      </a>
-      <a href="./pages/case-studies.html" class="btn btn-ghost" style="font-size:1rem;padding:16px 40px;">See Our Work</a>
+  <div id="page-intel" class="page">
+    <div class="intel-hero">
+      <p class="eyebrow">Intelligence Dispatches</p>
+      <h1 class="display-h" style="font-size:clamp(52px,8vw,96px);">NEXUS<br><em>Intel.</em></h1>
     </div>
   </div>
-</section>
 
-<div id="footer-placeholder"></div>
+  <div id="page-pricing" class="page">
+    <div class="pricing-hero">
+      <p class="eyebrow">Exclusive Access</p>
+      <h1 class="display-h">Reserved for<br><em>Precision Core &amp; Institutional Core</em><br><span class="ghost">clients only.</span></h1>
+    </div>
+  </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="./js/nexlyr-3d.js"></script>
-<script src="./js/components.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    Nexlyr.init('hero-canvas', { speed: 0.35, scale: 1.5, cameraZ: 3.2 });
-    Nexlyr.initCardGlow();
-    Nexlyr.initScrollReveal();
-    Nexlyr.initCounters();
-    Nexlyr.initNav();
-  });
-</script>
+  <!-- Chat Widget Structure -->
+  <div class="cw">
+    <div class="cp" id="cp">
+      <div class="cp-head">
+        <div class="cp-id">
+          <div class="cp-av">NX</div>
+          <div>
+            <div class="cp-name">NEXUS ELITE</div>
+            <div class="cp-status">● SOVEREIGN · ELITE ACTIVE</div>
+          </div>
+        </div>
+        <button class="cp-x" onclick="closeChat()">✕</button>
+      </div>
+      <div class="cp-msgs" id="cpMsgs">
+        <div class="cmsg ai">
+          <div class="cmsg-b">Elite precision. Institutional authority. Sovereign cognition. State your query.</div>
+        </div>
+      </div>
+      <div class="cp-input-row">
+        <input class="cp-input" id="cpInput" placeholder="Query NEXUS ELITE..." onkeydown="if(event.key==='Enter')sendMsg()">
+        <button class="cp-send" onclick="sendMsg()">→</button>
+      </div>
+      <div class="cp-note">NEXUS ELITE · Sovereign Session</div>
+    </div>
+    <div class="cb" onclick="toggleChat()">
+      <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+    </div>
+  </div>
+
+  <!-- External Script Isolation -->
+  <script src="components.js"></script>
+  <script src="nexlyr-3d.js"></script>
 </body>
 </html>
