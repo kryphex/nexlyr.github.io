@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services — Nexlyr</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .page-header { padding: calc(var(--nav-h) + 80px) 0 80px; }
+
+    /* SERVICE BLOCKS */
+    .service-block {
+      padding: 100px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .service-block:nth-child(even) { background: var(--deep); }
+
+    .service-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .service-inner.reverse { direction: rtl; }
+    .service-inner.reverse > * { direction: ltr; }
+
+    .service-meta {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .service-num-big {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      font-weight: 900;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--border-glow);
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .service-block h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    .service-block p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .service-deliverables {
+      margin-top: 32px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+
+    .deliverable {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 20px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.875rem;
+      transition: all 0.25s;
+    }
+
+    .deliverable:hover { border-color: var(--border-glow); background: var(--accent-soft); }
+
+    .deliverable-icon {
+      width: 28px; height: 28px; flex-shrink: 0;
+      border-radius: 6px;
+      background: var(--accent-soft);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem;
+    }
+
+    /* VISUAL PANEL */
+    .service-visual {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px;
+      min-height: 380px;
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+      position: relative; overflow: hidden;
+    }
+
+    .service-visual::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.15;
+    }
+
+    .sv-blue::before { background: var(--accent); }
+    .sv-teal::before { background: var(--teal); }
+    .sv-violet::before { background: var(--violet); }
+
+    .visual-metric {
+      display: flex; flex-direction: column; gap: 6px;
+    }
+
+    .vm-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .vm-value {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      background: linear-gradient(135deg, var(--text-primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .visual-tags {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+
+    /* PROCESS MINI */
+    .mini-steps {
+      display: flex; flex-direction: column; gap: 16px;
+      margin-top: 20px;
+    }
+
+    .mini-step {
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+
+    .mini-step-num {
+      width: 28px; height: 28px; flex-shrink: 0;
+      border-radius: 50%;
+      border: 1px solid var(--border-glow);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+    }
+
+    .mini-step-text { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+
+    /* PRICING TEASER */
+    .pricing-teaser {
+      padding: 100px 0;
+      text-align: center;
+      background: var(--deep);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .service-inner, .service-inner.reverse { grid-template-columns: 1fr; direction: ltr; gap: 40px; }
+    }
+  </style>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+
+<section class="page-header">
+  <div class="container">
+    <div class="orb orb-teal" style="width:500px;height:500px;top:-150px;left:-100px;"></div>
+    <div class="section-label fade-up">Our Services</div>
+    <h1 class="section-title fade-up fade-up-d1" style="max-width:700px;">
+      Six ways we give your team<br><em>an unfair edge</em>
+    </h1>
+    <p class="section-subtitle fade-up fade-up-d2">
+      Every service is designed to compound. Start anywhere — most clients find that one engagement leads naturally to the next.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 01 DISCOVERY -->
+<div class="service-block" id="discovery">
+  <div class="container">
+    <div class="service-inner">
+      <div>
+        <div class="service-meta">
+          <span class="service-num-big">01</span>
+          <div class="tag tag-accent">Most Popular</div>
+        </div>
+        <h2>AI Tool<br>Intelligence</h2>
+        <p>The AI tool landscape grows by hundreds of new entries every week. Our research team monitors 15,000+ tools across 80 categories in real time — so you always know what's worth your attention.</p>
+        <p>We deliver curated briefings tailored to your industry, use case, and team size. No generic lists. Every recommendation is justified with data, benchmarks, and honest trade-off analysis.</p>
+        <div class="service-deliverables">
+          <div class="deliverable">
+            <div class="deliverable-icon">📊</div>
+            Monthly Intelligence Briefing (10-15 pages)
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-icon">🔬</div>
+            Custom tool evaluations on request (72hr turnaround)
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-icon">📬</div>
+            Weekly signal digest (email + Slack integration)
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-icon">💬</div>
+            Async Q&A with our research team
+          </div>
+        </div>
+      </div>
+      <div class="service-visual sv-blue">
+        <div class="visual-metric">
+          <div class="vm-label">Tools in database</div>
+          <div class="vm-value">15,000+</div>
+        </div>
+        <div class="mini-steps">
+          <div class="mini-step">
+            <div class="mini-step-num">1</div>
+            <div class="mini-step-text">We monitor launches, updates, and pricing changes across 80 tool categories daily.</div>
+          </div>
+          <div class="mini-step">
+            <div class="mini-step-num">2</div>
+            <div class="mini-step-text">Tools passing initial filters enter 47-point deep evaluation by our research team.</div>
+          </div>
+          <div class="mini-step">
+            <div class="mini-step-num">3</div>
+            <div class="mini-step-text">You receive only the tools that meet your specific criteria, ranked with clear reasoning.</div>
+          </div>
+        </div>
+        <div class="visual-tags">
+          <span class="tag tag-accent">Research</span>
+          <span class="tag">Evaluation</span>
+          <span class="tag">Briefings</span>
+          <span class="tag">Competitive Intel</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 02 INTEGRATION -->
+<div class="service-block" id="integration">
+  <div class="container">
+    <div class="service-inner reverse">
+      <div>
+        <div class="service-meta">
+          <span class="service-num-big">02</span>
+        </div>
+        <h2>Stack<br>Engineering</h2>
+        <p>Knowing which tools to use is half the battle. The other half is building the integrations, automations, and data pipelines that make them actually work together. That's our engineering team's job.</p>
+        <p>We architect and deploy AI stacks that plug directly into your existing workflows — from CRM to finance to product — with full documentation and team handoff.</p>
+        <div class="service-deliverables">
+          <div class="deliverable">
+            <div class="deliverable-icon">🏗️</div>
+            Architecture design & technical specification
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-icon">⚙️</div>
+            API integration & workflow automation build
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-icon">🧪</div>
+            Load testing, security review & staging deploy
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-icon">📋</div>
+            Full documentation & knowledge transfer
+          </div>
+        </div>
+      </div>
+      <div class="service-visual sv-teal">
+        <div class="visual-metric">
+          <div class="vm-label">Avg. deployment time</div>
+          <div class="vm-value">11 days</div>
+        </div>
+        <div class="mini-steps">
+          <div class="mini-step">
+            <div class="mini-step-num">1</div>
+            <div class="mini-step-text">Technical discovery: mapping current stack, APIs, data flows, and team capabilities.</div>
+          </div>
+          <div class="mini-step">
+            <div class="mini-step-num">2</div>
+            <div class="mini-step-text">Architecture design and stakeholder sign-off before a single line of code is written.</div>
+          </div>
+          <div class="mini-step">
+            <div class="mini-step-num">3</div>
+            <div class="mini-step-text">2-week build sprints with daily updates, then staging → production deploy with training.</div>
+          </div>
+        </div>
+        <div class="visual-tags">
+          <span class="tag tag-teal">API Integration</span>
+          <span class="tag">Automation</span>
+          <span class="tag">Data Pipelines</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 03 STRATEGY -->
+<div class="service-block" id="strategy">
+  <div class="container">
+    <div class="service-inner">
+      <div>
+        <div class="service-meta">
+          <span class="service-num-big">03</span>
+        </div>
+        <h2>AI Transformation<br>Strategy</h2>
+        <p>Technology without strategy is just expensive noise. We work directly with leadership to build an AI transformation roadmap that aligns with business goals, culture, and risk tolerance.</p>
+        <p>This is not a generic framework. It's a bespoke 90-day plan, built around your specific situation, with clear owners, milestones, and success metrics for every initiative.</p>
+        <div class="service-deliverables">
+          <div class="deliverable">
+            <div class="deliverable-icon">🗺️</div>
+            90-day AI transformation roadmap
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-icon">🎯</div>
+            KPI framework & ROI tracking model
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-icon">👥</div>
+            Stakeholder alignment workshops (2 sessions)
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-icon">📌</div>
+            Change management playbook
+          </div>
+        </div>
+      </div>
+      <div class="service-visual sv-violet">
+        <div class="visual-metric">
+          <div class="vm-label">Avg. ROI at 6 months</div>
+          <div class="vm-value">4.2x</div>
+        </div>
+        <div class="visual-tags" style="margin-top:auto;">
+          <span class="tag tag-violet">Strategy</span>
+          <span class="tag">Roadmapping</span>
+          <span class="tag">Change Mgmt</span>
+          <span class="tag">OKRs</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 04 AUDIT -->
+<div class="service-block" id="audit">
+  <div class="container">
+    <div class="service-inner reverse">
+      <div>
+        <div class="service-meta">
+          <span class="service-num-big">04</span>
+          <div class="tag tag-teal">Quick Win</div>
+        </div>
+        <h2>AI Stack<br>Audit</h2>
+        <p>Most companies with 50+ employees are paying for 30–60 AI and SaaS tools, with significant overlap, security gaps, and underutilized capabilities. The audit reveals exactly where you're bleeding money and risk.</p>
+        <p>Our clients find an average of $60,000–$120,000 in annual tooling savings within the first audit — before any new tools are added.</p>
+        <div class="service-deliverables">
+          <div class="deliverable">
+            <div class="deliverable-icon">🔍</div>
+            Full inventory of current AI & SaaS tools
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-icon">⚠️</div>
+            Security & compliance gap report
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-icon">💸</div>
+            Redundancy & cost optimization analysis
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-icon">📈</div>
+            Prioritized action plan with estimated savings
+          </div>
+        </div>
+      </div>
+      <div class="service-visual sv-blue">
+        <div class="visual-metric">
+          <div class="vm-label">Average annual savings found</div>
+          <div class="vm-value">$87k</div>
+        </div>
+        <div class="visual-tags" style="margin-top:auto;">
+          <span class="tag tag-accent">Audit</span>
+          <span class="tag">Cost Savings</span>
+          <span class="tag">Security</span>
+          <span class="tag">GDPR</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 05 TRAINING -->
+<div class="service-block" id="training">
+  <div class="container">
+    <div class="service-inner">
+      <div>
+        <div class="service-meta">
+          <span class="service-num-big">05</span>
+        </div>
+        <h2>Team Enablement<br>& Training</h2>
+        <p>The best AI stack in the world fails if the team doesn't know how to use it. Our 30-day enablement program transforms your team from AI-curious to AI-native — with practical exercises built around your actual workflows.</p>
+        <div class="service-deliverables">
+          <div class="deliverable">
+            <div class="deliverable-icon">🎓</div>
+            4 live workshops (role-specific curriculum)
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-icon">📚</div>
+            Custom internal playbook & prompt library
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-icon">🏆</div>
+            AI Readiness Score (pre & post)
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-icon">🔄</div>
+            30-day async support channel
+          </div>
+        </div>
+      </div>
+      <div class="service-visual sv-teal">
+        <div class="visual-metric">
+          <div class="vm-label">Teams trained in 2025</div>
+          <div class="vm-value">140+</div>
+        </div>
+        <div class="visual-tags" style="margin-top:auto;">
+          <span class="tag tag-teal">Training</span>
+          <span class="tag">Workshops</span>
+          <span class="tag">Enablement</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 06 RETAINER -->
+<div class="service-block" id="retainer">
+  <div class="container">
+    <div class="service-inner reverse">
+      <div>
+        <div class="service-meta">
+          <span class="service-num-big">06</span>
+          <div class="tag tag-violet">Best Value</div>
+        </div>
+        <h2>Ongoing Intelligence<br>Retainer</h2>
+        <p>The AI landscape changes every week. The teams that stay permanently ahead are the ones with an always-on intelligence partner. Our retainer clients get everything — research, engineering support, strategic guidance, and priority access.</p>
+        <div class="service-deliverables">
+          <div class="deliverable">
+            <div class="deliverable-icon">📅</div>
+            Monthly briefings + quarterly strategy reviews
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-icon">🚀</div>
+            Priority integration support (48hr response)
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-icon">🧠</div>
+            Direct line to our research & engineering team
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-icon">⚡</div>
+            Emergency stack support included
+          </div>
+        </div>
+        <a href="./pricing.html" class="btn btn-primary" style="margin-top:32px;">See Retainer Pricing →</a>
+      </div>
+      <div class="service-visual sv-violet">
+        <div class="visual-metric">
+          <div class="vm-label">Avg. retainer client tenure</div>
+          <div class="vm-value">26 mo.</div>
+        </div>
+        <div class="visual-tags" style="margin-top:auto;">
+          <span class="tag tag-violet">Retainer</span>
+          <span class="tag">Ongoing</span>
+          <span class="tag">Priority Access</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING TEASER -->
+<section class="pricing-teaser">
+  <div class="container">
+    <div class="section-label" style="justify-content:center;">Ready to Begin?</div>
+    <h2 class="section-title" style="text-align:center;max-width:600px;margin:0 auto 24px;">
+      Start with a free<br><em>discovery call</em>
+    </h2>
+    <p class="section-subtitle" style="text-align:center;margin:0 auto 44px;">
+      30 minutes. No pitch decks. Just an honest conversation about where AI can move the needle for you.
+    </p>
+    <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;">
+      <a href="./contact.html" class="btn btn-primary">Book a Call</a>
+      <a href="./pricing.html" class="btn btn-ghost">View Pricing</a>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="../js/nexlyr-3d.js"></script>
+<script src="../js/components.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    Nexlyr.initScrollReveal();
+    Nexlyr.initNav();
+  });
+</script>
+</body>
+</html>

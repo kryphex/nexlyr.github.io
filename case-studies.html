@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case Studies — Nexlyr</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .page-header { padding: calc(var(--nav-h) + 80px) 0 80px; }
+
+    .case-grid { padding: 80px 0 120px; }
+
+    .case-featured {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 64px;
+      margin-bottom: 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative; overflow: hidden;
+      transition: border-color 0.3s;
+    }
+
+    .case-featured::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--teal));
+    }
+
+    .case-featured:hover { border-color: var(--border-glow); }
+
+    .case-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex; gap: 16px; align-items: center;
+    }
+
+    .case-featured h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      letter-spacing: -0.03em;
+    }
+
+    .case-featured p {
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+
+    .case-metrics {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+
+    .case-metric {
+      text-align: center;
+      padding: 24px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .case-metric .num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--text-primary), var(--accent));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      letter-spacing: -0.03em;
+    }
+
+    .case-metric .lbl {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    /* SMALL CASES */
+    .cases-small {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .case-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px;
+      transition: all 0.3s var(--ease-silk);
+      cursor: pointer;
+    }
+
+    .case-card:hover { border-color: var(--border-glow); transform: translateY(-4px); }
+
+    .case-card-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .case-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .case-card p {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .case-card-metrics {
+      display: flex; gap: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .ccm {
+      display: flex; flex-direction: column; gap: 4px;
+    }
+
+    .ccm-num {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.03em;
+    }
+
+    .ccm-lbl {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* INDUSTRIES */
+    .industries {
+      padding: 100px 0;
+      background: var(--deep);
+    }
+
+    .industry-pills {
+      display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px;
+    }
+
+    .industry-pill {
+      padding: 12px 24px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      transition: all 0.2s;
+      cursor: default;
+    }
+
+    .industry-pill:hover { border-color: var(--border-glow); color: var(--text-primary); background: var(--accent-soft); }
+
+    @media (max-width: 1024px) {
+      .case-featured { grid-template-columns: 1fr; padding: 40px; gap: 40px; }
+      .cases-small { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+
+<section class="page-header">
+  <div class="container">
+    <div class="orb orb-teal" style="width:500px;height:500px;top:-100px;right:0;"></div>
+    <div class="section-label fade-up">Case Studies</div>
+    <h1 class="section-title fade-up fade-up-d1" style="max-width:660px;">
+      Results our clients <em>actually achieved</em>
+    </h1>
+    <p class="section-subtitle fade-up fade-up-d2">
+      Real companies. Real numbers. No vanity metrics — every case study is based on documented outcomes with client approval.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="case-grid">
+  <div class="container">
+
+    <!-- FEATURED CASE 1 -->
+    <div class="case-featured" data-reveal>
+      <div>
+        <div class="case-label">
+          <span>Fintech · Series B</span>
+          <span class="tag tag-accent">Stack Engineering</span>
+        </div>
+        <h2>How Meridian Capital cut analysis time by 78% with an AI research stack</h2>
+        <p>Meridian's analysts were spending 60–70% of their time on manual data gathering and summarization. We replaced 4 manual workflows with an AI pipeline that delivers structured company profiles in under 8 minutes — down from 4 hours.</p>
+        <a href="#" class="btn btn-ghost">Read Full Case Study →</a>
+      </div>
+      <div>
+        <div class="case-metrics">
+          <div class="case-metric">
+            <div class="num">78%</div>
+            <div class="lbl">Time Saved</div>
+          </div>
+          <div class="case-metric">
+            <div class="num">4→0.1</div>
+            <div class="lbl">Hours Per Report</div>
+          </div>
+          <div class="case-metric">
+            <div class="num">$420k</div>
+            <div class="lbl">Annual Savings</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEATURED CASE 2 -->
+    <div class="case-featured" data-reveal style="margin-top:0;">
+      <div class="case-metrics" style="grid-template-columns:1fr;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div class="case-metric">
+            <div class="num">$87k</div>
+            <div class="lbl">Tooling Costs Saved</div>
+          </div>
+          <div class="case-metric">
+            <div class="num">3 wks</div>
+            <div class="lbl">Audit to Savings</div>
+          </div>
+          <div class="case-metric">
+            <div class="num">6→2</div>
+            <div class="lbl">Redundant AI Categories</div>
+          </div>
+          <div class="case-metric">
+            <div class="num">4.8x</div>
+            <div class="lbl">ROI at 6 months</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="case-label">
+          <span>SaaS · 200 employees</span>
+          <span class="tag tag-teal">Stack Audit</span>
+        </div>
+        <h2>Helios Labs found $87k in waste — before we built anything new</h2>
+        <p>A 3-week stack audit revealed that Helios was paying for 6 AI writing tools with 80%+ feature overlap. By consolidating to 2, eliminating 4 low-utilization subscriptions, and renegotiating 2 contracts, they recovered $87k annually before we integrated a single new tool.</p>
+        <a href="#" class="btn btn-ghost">Read Full Case Study →</a>
+      </div>
+    </div>
+
+    <!-- SMALL CASES -->
+    <div class="cases-small" style="margin-top:32px;">
+      <div class="case-card" data-reveal>
+        <div class="case-card-label">E-Commerce · 50 employees</div>
+        <h3>AI-native content engine that 4x'd output without headcount</h3>
+        <p>Built a Claude + Jasper + Make pipeline that generates, edits, and publishes 40 product descriptions per hour. Eliminated 2 contractor positions.</p>
+        <div class="case-card-metrics">
+          <div class="ccm"><div class="ccm-num">4x</div><div class="ccm-lbl">Content Output</div></div>
+          <div class="ccm"><div class="ccm-num">$96k</div><div class="ccm-lbl">Saved Annually</div></div>
+        </div>
+      </div>
+      <div class="case-card" data-reveal>
+        <div class="case-card-label">Healthcare Tech · 120 employees</div>
+        <h3>HIPAA-compliant AI stack built in 6 weeks</h3>
+        <p>Deployed a fully compliant AI stack for clinical note summarization, passing SOC 2 audit and HIPAA assessment within 6 weeks of engagement start.</p>
+        <div class="case-card-metrics">
+          <div class="ccm"><div class="ccm-num">6 wks</div><div class="ccm-lbl">To Compliance</div></div>
+          <div class="ccm"><div class="ccm-num">65%</div><div class="ccm-lbl">Time Saved</div></div>
+        </div>
+      </div>
+      <div class="case-card" data-reveal>
+        <div class="case-card-label">Law Firm · 40 employees</div>
+        <h3>Contract review from 3 days to 2 hours</h3>
+        <p>Integrated a custom contract intelligence pipeline that extracts, flags, and summarizes clauses. Associates now complete initial reviews in under 2 hours.</p>
+        <div class="case-card-metrics">
+          <div class="ccm"><div class="ccm-num">93%</div><div class="ccm-lbl">Time Reduced</div></div>
+          <div class="ccm"><div class="ccm-num">3x</div><div class="ccm-lbl">Throughput</div></div>
+        </div>
+      </div>
+      <div class="case-card" data-reveal>
+        <div class="case-card-label">Marketing Agency · 30 employees</div>
+        <h3>From 8 tools to 3, with better output</h3>
+        <p>Stack audit and rebuild reduced tooling spend by 60% while improving content quality scores by 22% per client reporting. Team productivity up 40%.</p>
+        <div class="case-card-metrics">
+          <div class="ccm"><div class="ccm-num">60%</div><div class="ccm-lbl">Cost Reduction</div></div>
+          <div class="ccm"><div class="ccm-num">40%</div><div class="ccm-lbl">Productivity Gain</div></div>
+        </div>
+      </div>
+      <div class="case-card" data-reveal>
+        <div class="case-card-label">Logistics · Series A</div>
+        <h3>AI dispatch optimization saving $200k/year in fuel</h3>
+        <p>Built a route optimization pipeline using AI and real-time data. Average fuel cost per route dropped 18% within the first month of deployment.</p>
+        <div class="case-card-metrics">
+          <div class="ccm"><div class="ccm-num">$200k</div><div class="ccm-lbl">Annual Savings</div></div>
+          <div class="ccm"><div class="ccm-num">18%</div><div class="ccm-lbl">Fuel Reduction</div></div>
+        </div>
+      </div>
+      <div class="case-card" data-reveal>
+        <div class="case-card-label">Education Platform · B2C</div>
+        <h3>Personalized learning pathways at scale</h3>
+        <p>Deployed an AI curriculum engine that generates personalized learning paths for 40,000+ students. Course completion rate improved from 34% to 71%.</p>
+        <div class="case-card-metrics">
+          <div class="ccm"><div class="ccm-num">71%</div><div class="ccm-lbl">Completion Rate</div></div>
+          <div class="ccm"><div class="ccm-num">2.1x</div><div class="ccm-lbl">Revenue/User</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="industries">
+  <div class="container">
+    <div class="section-label">Industries We Serve</div>
+    <h2 class="section-title">We've worked across<br><em>every major sector</em></h2>
+    <div class="industry-pills">
+      <span class="industry-pill">Financial Services</span>
+      <span class="industry-pill">Healthcare & MedTech</span>
+      <span class="industry-pill">SaaS & Software</span>
+      <span class="industry-pill">Legal & Compliance</span>
+      <span class="industry-pill">E-Commerce & Retail</span>
+      <span class="industry-pill">Marketing & Media</span>
+      <span class="industry-pill">Education & EdTech</span>
+      <span class="industry-pill">Logistics & Supply Chain</span>
+      <span class="industry-pill">Real Estate & PropTech</span>
+      <span class="industry-pill">Manufacturing</span>
+      <span class="industry-pill">Professional Services</span>
+      <span class="industry-pill">Non-Profit</span>
+    </div>
+    <div style="margin-top:56px;display:flex;gap:20px;flex-wrap:wrap;">
+      <a href="./contact.html" class="btn btn-primary">Discuss Your Industry</a>
+      <a href="./services.html" class="btn btn-ghost">View Services</a>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="../js/nexlyr-3d.js"></script>
+<script src="../js/components.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    Nexlyr.initScrollReveal();
+    Nexlyr.initNav();
+  });
+</script>
+</body>
+</html>

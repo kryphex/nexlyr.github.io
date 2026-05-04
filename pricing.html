@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing — Nexlyr</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .page-header { padding: calc(var(--nav-h) + 80px) 0 80px; text-align: center; }
+
+    /* TOGGLE */
+    .billing-toggle {
+      display: inline-flex; align-items: center; gap: 16px;
+      margin-bottom: 64px;
+      padding: 6px; background: var(--panel); border: 1px solid var(--border); border-radius: 100px;
+    }
+
+    .toggle-btn {
+      padding: 10px 24px; border-radius: 100px;
+      border: none; cursor: pointer;
+      font-family: var(--font-body); font-size: 0.875rem;
+      transition: all 0.25s;
+      background: transparent; color: var(--text-secondary);
+    }
+
+    .toggle-btn.active { background: var(--accent); color: var(--void); font-weight: 500; }
+
+    .save-badge {
+      font-family: var(--font-mono); font-size: 0.65rem;
+      letter-spacing: 0.08em; color: var(--teal);
+      background: var(--teal-soft); border: 1px solid rgba(0,212,184,0.2);
+      padding: 3px 10px; border-radius: 100px;
+    }
+
+    /* PRICING CARDS */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      align-items: start;
+      margin-bottom: 80px;
+    }
+
+    .pricing-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px 36px;
+      position: relative;
+      transition: all 0.3s var(--ease-silk);
+    }
+
+    .pricing-card.featured {
+      border-color: var(--accent);
+      background: linear-gradient(180deg, rgba(79,140,255,0.06), var(--panel));
+      transform: translateY(-12px);
+      box-shadow: 0 40px 80px rgba(79,140,255,0.12);
+    }
+
+    .popular-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      padding: 5px 20px;
+      background: var(--accent);
+      border-radius: 100px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--void);
+      white-space: nowrap;
+    }
+
+    .plan-name {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .plan-price {
+      margin-bottom: 8px;
+    }
+
+    .price-amount {
+      font-family: var(--font-display);
+      font-size: 3.2rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .price-period {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-left: 4px;
+    }
+
+    .plan-desc {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      line-height: 1.7;
+      margin-bottom: 32px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .plan-features {
+      list-style: none;
+      margin-bottom: 36px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+
+    .plan-features li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .plan-features li::before {
+      content: '✓';
+      color: var(--teal);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .plan-features li.muted { color: var(--text-muted); }
+    .plan-features li.muted::before { content: '–'; color: var(--text-muted); font-weight: 400; }
+
+    /* ENTERPRISE */
+    .enterprise-card {
+      background: linear-gradient(135deg, rgba(79,140,255,0.06), rgba(0,212,184,0.04));
+      border: 1px solid var(--border-glow);
+      border-radius: 20px;
+      padding: 56px 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 48px;
+      margin-bottom: 100px;
+    }
+
+    .enterprise-card h3 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .enterprise-card p {
+      color: var(--text-secondary);
+      max-width: 500px;
+      line-height: 1.75;
+    }
+
+    .enterprise-features {
+      display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px;
+    }
+
+    /* FAQ */
+    .faq { padding: 100px 0; }
+
+    .faq-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+      margin-top: 64px;
+      border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+    }
+
+    .faq-item {
+      padding: 32px 40px;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+    }
+
+    .faq-item:nth-child(even) { border-right: none; }
+    .faq-item:last-child, .faq-item:nth-last-child(2):nth-child(odd) { border-bottom: none; }
+
+    .faq-q {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .faq-a {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      line-height: 1.75;
+    }
+
+    /* GUARANTEE */
+    .guarantee {
+      padding: 80px 0;
+      background: var(--deep);
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 1024px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+      .pricing-card.featured { transform: none; }
+      .enterprise-card { flex-direction: column; padding: 40px; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .faq-item { border-right: none; }
+    }
+  </style>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+
+<section class="page-header">
+  <div class="container">
+    <div class="orb orb-blue" style="width:600px;height:600px;top:-200px;left:50%;transform:translateX(-50%);"></div>
+    <div class="section-label fade-up" style="justify-content:center;">Pricing</div>
+    <h1 class="section-title fade-up fade-up-d1" style="max-width:600px;margin:0 auto 24px;">
+      Simple pricing.<br><em>Serious results.</em>
+    </h1>
+    <p class="section-subtitle fade-up fade-up-d2" style="margin:0 auto 48px;">
+      All plans include a 14-day free trial and a 30-day money-back guarantee. No contracts. Cancel anytime.
+    </p>
+
+    <div class="billing-toggle fade-up fade-up-d3">
+      <button class="toggle-btn active" id="monthly-btn">Monthly</button>
+      <button class="toggle-btn" id="annual-btn">Annual <span class="save-badge">SAVE 25%</span></button>
+    </div>
+  </div>
+</section>
+
+<section style="padding:0 0 100px;">
+  <div class="container">
+    <div class="pricing-grid">
+
+      <!-- STARTER -->
+      <div class="pricing-card">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">
+          <span class="price-amount" data-monthly="$490" data-annual="$369">$490</span>
+          <span class="price-period">/month</span>
+        </div>
+        <p class="plan-desc">For small teams and startups ready to start using AI more intelligently. Includes our core research intelligence service.</p>
+        <ul class="plan-features">
+          <li>Monthly Intelligence Briefing</li>
+          <li>Up to 3 custom tool evaluations/month</li>
+          <li>Weekly signal digest (email)</li>
+          <li>Access to AI tools database (300+ entries)</li>
+          <li>Community Slack channel access</li>
+          <li class="muted">Stack engineering support</li>
+          <li class="muted">Strategy consulting hours</li>
+          <li class="muted">Priority support</li>
+        </ul>
+        <a href="./contact.html" class="btn btn-ghost" style="width:100%;justify-content:center;">Start Free Trial</a>
+      </div>
+
+      <!-- GROWTH — FEATURED -->
+      <div class="pricing-card featured">
+        <div class="popular-badge">Most Popular</div>
+        <div class="plan-name">Growth</div>
+        <div class="plan-price">
+          <span class="price-amount" data-monthly="$1,490" data-annual="$1,118">$1,490</span>
+          <span class="price-period">/month</span>
+        </div>
+        <p class="plan-desc">For scaling teams that need intelligence AND implementation. Research plus hands-on engineering support included.</p>
+        <ul class="plan-features">
+          <li>Everything in Starter</li>
+          <li>Unlimited custom tool evaluations</li>
+          <li>8 hours/month integration engineering</li>
+          <li>Monthly 1:1 strategy call (60 min)</li>
+          <li>Full AI tools database (2,400+ entries)</li>
+          <li>Slack & email priority support (48hr)</li>
+          <li>Quarterly stack review</li>
+          <li class="muted">Dedicated account engineer</li>
+        </ul>
+        <a href="./contact.html" class="btn btn-primary" style="width:100%;justify-content:center;">Start Free Trial</a>
+      </div>
+
+      <!-- SCALE -->
+      <div class="pricing-card">
+        <div class="plan-name">Scale</div>
+        <div class="plan-price">
+          <span class="price-amount" data-monthly="$3,490" data-annual="$2,618">$3,490</span>
+          <span class="price-period">/month</span>
+        </div>
+        <p class="plan-desc">For companies where AI is a competitive differentiator. Full-service intelligence, engineering, and strategic partnership.</p>
+        <ul class="plan-features">
+          <li>Everything in Growth</li>
+          <li>24 hours/month integration engineering</li>
+          <li>Dedicated account engineer</li>
+          <li>Weekly strategy calls</li>
+          <li>Team training program (1 cohort/quarter)</li>
+          <li>Emergency support (same-day response)</li>
+          <li>Custom research reports</li>
+          <li>Annual AI transformation roadmap</li>
+        </ul>
+        <a href="./contact.html" class="btn btn-ghost" style="width:100%;justify-content:center;">Start Free Trial</a>
+      </div>
+    </div>
+
+    <!-- ENTERPRISE -->
+    <div class="enterprise-card">
+      <div>
+        <h3>Enterprise & Custom</h3>
+        <p>For organizations with complex security requirements, large team training needs, or custom integration projects that don't fit standard plans. We build exactly what you need.</p>
+        <div class="enterprise-features">
+          <span class="tag tag-accent">Custom SLA</span>
+          <span class="tag">SOC 2 Type II</span>
+          <span class="tag">On-prem option</span>
+          <span class="tag tag-teal">Dedicated team</span>
+          <span class="tag">Volume pricing</span>
+          <span class="tag">SSO / SAML</span>
+        </div>
+      </div>
+      <div style="flex-shrink:0;">
+        <a href="./contact.html" class="btn btn-primary" style="font-size:1rem;padding:16px 40px;">Talk to Enterprise Sales</a>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq" style="padding:0;">
+      <div class="section-label">Common Questions</div>
+      <h2 class="section-title">Pricing FAQ</h2>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <div class="faq-q">What happens after the free trial?</div>
+          <p class="faq-a">After 14 days, your plan activates and the first payment is charged. We send a reminder 3 days before the trial ends. You can cancel at any time during the trial with no charge.</p>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Can I change plans mid-cycle?</div>
+          <p class="faq-a">Yes. Upgrades take effect immediately and are prorated. Downgrades take effect at the next billing cycle. No fees for changing plans.</p>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Do engineering hours roll over?</div>
+          <p class="faq-a">Unused engineering hours roll over for up to one month. After that they expire. Most clients use their hours in the first two weeks of each month for project sprints.</p>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Is there a minimum commitment?</div>
+          <p class="faq-a">No minimum commitment on monthly plans. Annual plans are paid upfront at the discounted rate. We recommend starting monthly and moving to annual once you know the value.</p>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">What tools do you cover in evaluations?</div>
+          <p class="faq-a">Any tool relevant to your use case. Our database spans 80+ categories. Custom evaluations on Growth and Scale can be requested for any specific tool, including niche or enterprise-only products.</p>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">How does the money-back guarantee work?</div>
+          <p class="faq-a">If you're not satisfied within the first 30 days of a paid plan, we refund 100% — no questions asked. We've issued fewer than 5 refunds in our history.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<div class="guarantee">
+  <div class="container">
+    <div style="font-size:3rem;margin-bottom:16px;">🛡️</div>
+    <h3 class="section-title" style="margin:0 auto 16px;text-align:center;max-width:500px;font-size:2rem;">
+      30-Day Money-Back Guarantee
+    </h3>
+    <p class="section-subtitle" style="text-align:center;margin:0 auto 36px;">
+      We're so confident in the value you'll find, we guarantee it. If you don't see a clear ROI case within 30 days, we'll refund every cent.
+    </p>
+    <div style="text-align:center;">
+      <a href="./contact.html" class="btn btn-primary">Get Started — Risk Free</a>
+    </div>
+  </div>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="../js/nexlyr-3d.js"></script>
+<script src="../js/components.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    Nexlyr.initNav();
+
+    const monthlyBtn = document.getElementById('monthly-btn');
+    const annualBtn = document.getElementById('annual-btn');
+    const prices = document.querySelectorAll('[data-monthly]');
+
+    function setMonthly() {
+      monthlyBtn.classList.add('active');
+      annualBtn.classList.remove('active');
+      prices.forEach(p => p.textContent = p.dataset.monthly);
+    }
+
+    function setAnnual() {
+      annualBtn.classList.add('active');
+      monthlyBtn.classList.remove('active');
+      prices.forEach(p => p.textContent = p.dataset.annual);
+    }
+
+    monthlyBtn.addEventListener('click', setMonthly);
+    annualBtn.addEventListener('click', setAnnual);
+  });
+</script>
+</body>
+</html>

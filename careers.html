@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Careers — Nexlyr</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .page-header { padding: calc(var(--nav-h) + 80px) 0 80px; }
+
+    .perks { padding: 100px 0; background: var(--deep); }
+    .perks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+
+    .perk {
+      padding: 32px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: all 0.3s;
+    }
+    .perk:hover { border-color: var(--border-glow); }
+    .perk-icon { font-size: 2rem; margin-bottom: 16px; }
+    .perk h3 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; }
+    .perk p { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.7; }
+
+    /* JOBS */
+    .jobs { padding: 100px 0; }
+
+    .job-dept {
+      margin-bottom: 56px;
+    }
+
+    .dept-title {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .job-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 28px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      transition: all 0.2s;
+      cursor: pointer;
+      text-decoration: none; color: inherit;
+    }
+
+    .job-item:hover { border-color: var(--border-glow); background: var(--accent-soft); transform: translateX(4px); }
+
+    .job-title { font-family: var(--font-display); font-size: 1rem; font-weight: 600; }
+    .job-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+
+    .job-arrow { color: var(--accent); font-size: 1.2rem; }
+
+    /* VALUES */
+    .culture { padding: 100px 0; background: var(--deep); }
+
+    @media (max-width: 768px) {
+      .perks-grid { grid-template-columns: 1fr; }
+      .job-item { flex-direction: column; align-items: flex-start; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+
+<section class="page-header">
+  <div class="container">
+    <div class="orb orb-violet" style="width:500px;height:500px;top:-100px;right:-100px;"></div>
+    <div class="section-label fade-up">Careers at Nexlyr</div>
+    <h1 class="section-title fade-up fade-up-d1" style="max-width:700px;">
+      Work at the frontier<br>of <em>AI intelligence</em>
+    </h1>
+    <p class="section-subtitle fade-up fade-up-d2">
+      We're a small, high-output team obsessed with finding signal in a very noisy landscape. If that sounds exciting, we'd love to hear from you.
+    </p>
+    <div class="fade-up fade-up-d3" style="margin-top:36px;display:flex;gap:12px;flex-wrap:wrap;">
+      <div class="tag tag-teal">Remote-First</div>
+      <div class="tag">22 people worldwide</div>
+      <div class="tag tag-accent">Series A</div>
+      <div class="tag">Competitive equity</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PERKS -->
+<section class="perks">
+  <div class="container">
+    <div class="section-label">Why Nexlyr</div>
+    <h2 class="section-title">Built differently,<br><em>on purpose</em></h2>
+    <div class="perks-grid">
+      <div class="perk">
+        <div class="perk-icon">🌍</div>
+        <h3>Fully Remote</h3>
+        <p>Work from anywhere. We're async-first with team hubs in SF, London, and Singapore. No mandatory in-office days — ever.</p>
+      </div>
+      <div class="perk">
+        <div class="perk-icon">📚</div>
+        <h3>$5k Learning Budget</h3>
+        <p>Annual budget for courses, conferences, books, and tools. We genuinely expect you to use it every year.</p>
+      </div>
+      <div class="perk">
+        <div class="perk-icon">💻</div>
+        <h3>Top-of-Market Hardware</h3>
+        <p>MacBook Pro M4 Max or equivalent. Every tool you need to do your best work, expensed without question.</p>
+      </div>
+      <div class="perk">
+        <div class="perk-icon">🏥</div>
+        <h3>Health & Wellness</h3>
+        <p>Full medical, dental, vision. $150/month wellness stipend for gym, therapy, or whatever keeps you at your best.</p>
+      </div>
+      <div class="perk">
+        <div class="perk-icon">⚖️</div>
+        <h3>Equity That Matters</h3>
+        <p>Meaningful equity stake with 4-year vest, 1-year cliff. We're building something valuable and you should share in that.</p>
+      </div>
+      <div class="perk">
+        <div class="perk-icon">🚀</div>
+        <h3>Fast Track to Senior</h3>
+        <p>We promote based on impact, not tenure. Most hires reach senior level within 18 months. Clear, written growth frameworks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OPEN ROLES -->
+<section class="jobs">
+  <div class="container">
+    <div class="section-label">Open Positions</div>
+    <h2 class="section-title">7 open roles</h2>
+
+    <div class="job-dept" style="margin-top:56px;">
+      <div class="dept-title">Research</div>
+      <a href="./contact.html" class="job-item">
+        <div>
+          <div class="job-title">Senior AI Research Analyst</div>
+          <div class="job-tags"><span class="tag">Full-time</span><span class="tag tag-accent">Remote</span><span class="tag">$130–160k</span></div>
+        </div>
+        <span class="job-arrow">→</span>
+      </a>
+      <a href="./contact.html" class="job-item">
+        <div>
+          <div class="job-title">AI Tools Evaluator (Security Focus)</div>
+          <div class="job-tags"><span class="tag">Full-time</span><span class="tag tag-accent">Remote</span><span class="tag">$110–140k</span></div>
+        </div>
+        <span class="job-arrow">→</span>
+      </a>
+    </div>
+
+    <div class="job-dept">
+      <div class="dept-title">Engineering</div>
+      <a href="./contact.html" class="job-item">
+        <div>
+          <div class="job-title">Senior Full-Stack Engineer (AI Integration)</div>
+          <div class="job-tags"><span class="tag">Full-time</span><span class="tag tag-teal">Remote · SF preferred</span><span class="tag">$160–200k</span></div>
+        </div>
+        <span class="job-arrow">→</span>
+      </a>
+      <a href="./contact.html" class="job-item">
+        <div>
+          <div class="job-title">AI Systems Architect</div>
+          <div class="job-tags"><span class="tag">Full-time</span><span class="tag tag-accent">Remote</span><span class="tag">$180–220k</span></div>
+        </div>
+        <span class="job-arrow">→</span>
+      </a>
+    </div>
+
+    <div class="job-dept">
+      <div class="dept-title">Strategy & Client</div>
+      <a href="./contact.html" class="job-item">
+        <div>
+          <div class="job-title">AI Strategy Consultant</div>
+          <div class="job-tags"><span class="tag">Full-time</span><span class="tag tag-accent">Remote</span><span class="tag">$120–160k + bonus</span></div>
+        </div>
+        <span class="job-arrow">→</span>
+      </a>
+      <a href="./contact.html" class="job-item">
+        <div>
+          <div class="job-title">Account Executive (Growth)</div>
+          <div class="job-tags"><span class="tag">Full-time</span><span class="tag tag-accent">Remote</span><span class="tag">$90k base + commission</span></div>
+        </div>
+        <span class="job-arrow">→</span>
+      </a>
+    </div>
+
+    <div class="job-dept">
+      <div class="dept-title">Operations</div>
+      <a href="./contact.html" class="job-item">
+        <div>
+          <div class="job-title">Operations Manager</div>
+          <div class="job-tags"><span class="tag">Full-time</span><span class="tag tag-accent">Remote</span><span class="tag">$100–130k</span></div>
+        </div>
+        <span class="job-arrow">→</span>
+      </a>
+    </div>
+
+    <div style="margin-top:48px;padding:32px;border:1px solid var(--border);border-radius:16px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;">
+      <div>
+        <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:600;margin-bottom:6px;">Don't see your role?</h3>
+        <p style="color:var(--text-secondary);font-size:0.875rem;">We're always open to exceptional people. Send us your portfolio/CV with a note about what you'd build here.</p>
+      </div>
+      <a href="./contact.html" class="btn btn-ghost">Send Speculative Application</a>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="../js/nexlyr-3d.js"></script>
+<script src="../js/components.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    Nexlyr.initScrollReveal();
+    Nexlyr.initNav();
+  });
+</script>
+</body>
+</html>

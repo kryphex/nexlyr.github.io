@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Nexlyr</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .page-header { padding: calc(var(--nav-h) + 80px) 0 80px; }
+
+    .manifesto {
+      padding: 120px 0;
+      background: var(--deep);
+    }
+
+    .manifesto-text {
+      max-width: 760px; margin: 0 auto;
+      text-align: center;
+    }
+
+    .manifesto-text blockquote {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 600;
+      font-style: italic;
+      line-height: 1.35;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+      margin-bottom: 32px;
+    }
+
+    .manifesto-text blockquote em {
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.35);
+    }
+
+    .manifesto-text p {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    /* VALUES */
+    .values { padding: 120px 0; }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 64px;
+    }
+
+    .value-card {
+      padding: 40px 36px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--panel);
+      transition: all 0.3s var(--ease-silk);
+    }
+
+    .value-card:hover { border-color: var(--border-glow); transform: translateY(-4px); }
+
+    .value-icon { font-size: 2rem; margin-bottom: 20px; }
+
+    .value-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .value-card p { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.75; }
+
+    /* TIMELINE */
+    .timeline { padding: 120px 0; background: var(--deep); }
+
+    .timeline-list {
+      margin-top: 64px;
+      position: relative;
+      padding-left: 40px;
+    }
+
+    .timeline-list::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, var(--accent), var(--teal), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 56px;
+      padding-left: 32px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -44px; top: 6px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    .timeline-year {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .timeline-item h3 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .timeline-item p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; max-width: 600px; }
+
+    /* TEAM */
+    .team { padding: 120px 0; }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 64px;
+    }
+
+    .team-card {
+      text-align: center;
+      padding: 36px 24px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--panel);
+      transition: all 0.3s var(--ease-silk);
+    }
+
+    .team-card:hover { border-color: var(--border-glow); transform: translateY(-4px); }
+
+    .team-avatar {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--void);
+    }
+
+    .team-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .team-card .role {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+
+    .team-card .bio {
+      margin-top: 14px;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      line-height: 1.65;
+    }
+
+    /* CTA */
+    .about-cta {
+      padding: 100px 0;
+      background: var(--deep);
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .values-grid, .team-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 1024px) {
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="container">
+    <div class="orb orb-blue" style="width:400px;height:400px;top:-100px;right:-100px;"></div>
+    <div class="section-label fade-up">About Nexlyr</div>
+    <h1 class="section-title fade-up fade-up-d1" style="max-width:700px;">
+      We exist to give every team<br><em>an unfair advantage</em>
+    </h1>
+    <p class="section-subtitle fade-up fade-up-d2">
+      Founded in 2022, Nexlyr was born from a simple frustration: the AI landscape was exploding with tools, and smart teams were drowning in noise. We became the filter.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="container">
+    <div class="manifesto-text">
+      <blockquote>
+        "The future doesn't belong to those who use AI.<br>It belongs to those who use it <em>well</em>."
+      </blockquote>
+      <p>
+        We believe in intelligence compounding. The right AI stack doesn't just save time today — it learns, adapts, and multiplies your advantage every month. Our job is to make sure you're building with tools that compound, not tools that stagnate.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+  <div class="container">
+    <div class="section-label">What We Stand For</div>
+    <h2 class="section-title">Principles that drive everything</h2>
+    <div class="values-grid">
+      <div class="value-card" data-reveal>
+        <div class="value-icon">🔍</div>
+        <h3>Signal Over Noise</h3>
+        <p>We evaluate thousands of tools so we can confidently recommend tens. Quality of recommendation always trumps quantity.</p>
+      </div>
+      <div class="value-card" data-reveal>
+        <div class="value-icon">⚡</div>
+        <h3>Speed as Strategy</h3>
+        <p>In AI, being 6 months ahead isn't luck — it's leverage. We move fast, stay current, and help our clients act before the market catches on.</p>
+      </div>
+      <div class="value-card" data-reveal>
+        <div class="value-icon">🤝</div>
+        <h3>Radical Transparency</h3>
+        <p>No affiliate kickbacks distort our recommendations. We call out tools that underperform even when they're popular. Trust is the product.</p>
+      </div>
+      <div class="value-card" data-reveal>
+        <div class="value-icon">📐</div>
+        <h3>Systems Thinking</h3>
+        <p>A single AI tool is a feature. A connected AI stack is an advantage. We design ecosystems, not isolated point solutions.</p>
+      </div>
+      <div class="value-card" data-reveal>
+        <div class="value-icon">🌱</div>
+        <h3>Long-Game Partnerships</h3>
+        <p>Our incentive is your long-term ROI, not your short-term contract. We measure success in years, not deliverables.</p>
+      </div>
+      <div class="value-card" data-reveal>
+        <div class="value-icon">🛡️</div>
+        <h3>Security Without Friction</h3>
+        <p>Every recommendation is evaluated for compliance and data risk. We never sacrifice governance for speed — you shouldn't have to choose.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TIMELINE -->
+<section class="timeline">
+  <div class="container">
+    <div class="section-label">Our Story</div>
+    <h2 class="section-title">How we got here</h2>
+    <div class="timeline-list">
+      <div class="timeline-item" data-reveal>
+        <div class="timeline-year">Q1 2022 · FOUNDING</div>
+        <h3>Nexlyr is Born</h3>
+        <p>Founded by two engineers who spent years evaluating AI tools for enterprise clients. Decided to turn their research process into a dedicated firm.</p>
+      </div>
+      <div class="timeline-item" data-reveal>
+        <div class="timeline-year">Q4 2022 · FIRST 10</div>
+        <h3>First 10 Clients</h3>
+        <p>Reached 10 paying clients within 6 months, largely through word-of-mouth from the first two. Hired the first full-time researcher.</p>
+      </div>
+      <div class="timeline-item" data-reveal>
+        <div class="timeline-year">2023 · SCALE</div>
+        <h3>Intelligence Database Launch</h3>
+        <p>Launched the internal AI tools database, formalizing our 47-point evaluation framework across 800 tools. The methodology that all our work is built on.</p>
+      </div>
+      <div class="timeline-item" data-reveal>
+        <div class="timeline-year">2024 · INTEGRATION</div>
+        <h3>Engineering Practice Added</h3>
+        <p>Added a dedicated integration engineering team. Clients could now go from briefing to live deployment entirely within Nexlyr, ending the gap between advice and execution.</p>
+      </div>
+      <div class="timeline-item" data-reveal>
+        <div class="timeline-year">2025 · GROWTH</div>
+        <h3>300+ Clients, 12 Countries</h3>
+        <p>Crossed 300 active clients across North America, Europe, and Asia-Pacific. Launched the AI Transformation training program for enterprise teams.</p>
+      </div>
+      <div class="timeline-item" data-reveal>
+        <div class="timeline-year">2026 · NOW</div>
+        <h3>The Intelligence Platform</h3>
+        <p>Launching the Nexlyr platform — real-time AI tool monitoring, automated stack audits, and team-level AI readiness scoring. The next chapter begins.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team">
+  <div class="container">
+    <div class="section-label">The People</div>
+    <h2 class="section-title">Who's behind the work</h2>
+    <div class="team-grid">
+      <div class="team-card" data-reveal>
+        <div class="team-avatar" style="background: linear-gradient(135deg, var(--accent), var(--teal));">MA</div>
+        <h4>Marcus A.</h4>
+        <div class="role">CO-FOUNDER · CEO</div>
+        <p class="bio">10 years in enterprise software. Former AI researcher at Stanford AI Lab. Obsessed with how AI creates compound advantages.</p>
+      </div>
+      <div class="team-card" data-reveal>
+        <div class="team-avatar" style="background: linear-gradient(135deg, var(--teal), var(--violet));">ZK</div>
+        <h4>Zara K.</h4>
+        <div class="role">CO-FOUNDER · CTO</div>
+        <p class="bio">Full-stack engineer and systems architect. Built AI infrastructure at two unicorn startups before co-founding Nexlyr.</p>
+      </div>
+      <div class="team-card" data-reveal>
+        <div class="team-avatar" style="background: linear-gradient(135deg, var(--violet), #f472b6);">RN</div>
+        <h4>Riya N.</h4>
+        <div class="role">HEAD OF RESEARCH</div>
+        <p class="bio">Former analyst at Gartner. Leads our 47-point evaluation framework and oversees the AI tools database of 15,000+ entries.</p>
+      </div>
+      <div class="team-card" data-reveal>
+        <div class="team-avatar" style="background: linear-gradient(135deg, #f59e0b, var(--accent));">LM</div>
+        <h4>Leo M.</h4>
+        <div class="role">HEAD OF ENGINEERING</div>
+        <p class="bio">Veteran of AWS and Cloudflare. Leads the integration engineering team responsible for deploying AI stacks into live production environments.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT CTA -->
+<section class="about-cta">
+  <div class="container">
+    <div class="section-label" style="justify-content:center;">Join Our Story</div>
+    <h2 class="section-title" style="text-align:center;margin:0 auto 24px;">
+      Want to work with us?
+    </h2>
+    <p class="section-subtitle" style="text-align:center;margin:0 auto 40px;">
+      We're always looking for exceptional researchers, engineers, and strategists who are obsessed with AI and how it changes everything.
+    </p>
+    <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;">
+      <a href="./careers.html" class="btn btn-primary">View Open Roles</a>
+      <a href="./contact.html" class="btn btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<div id="footer-placeholder"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="../js/nexlyr-3d.js"></script>
+<script src="../js/components.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    Nexlyr.initScrollReveal();
+    Nexlyr.initNav();
+  });
+</script>
+</body>
+</html>
